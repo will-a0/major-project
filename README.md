@@ -9,18 +9,18 @@ Must Have:
 
 - Opening screen, welcoming user (with music)
 - Functional password bar that takes user to desktop
-- Simple settings application
-- Drag and drop functionality
 - Some game and interactive scene applications (potentially use games made prior in the class and make them game applications in the operating system)
-- Music application (with nice, olden day song playlists)
-- Application for notes (dumbed down version of Microsoft word- will take more of the form of, for example, a MacBook, “Notes” app)
 - Button to “shut down” program
 - Program runs in browser as an illusion of an operating system
 
 Nice to Have:
 
 - Fading animations for aesthetic purposes (not just front screen)
+- Music application (with nice, olden day song playlists)
+- Simple settings application
 - Button to “Log out” and not necessarily shut down all the time
+- Drag and drop functionality
+- Application for notes (dumbed down version of Microsoft word- will take more of the form of, for example, a MacBook, “Notes” app)
 - Program boots automatically from USB using JavaScript to C compiler 
 
 Why this topic?
