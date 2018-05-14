@@ -33,16 +33,13 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 0;
+  programState = 1;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
 }
 
 function draw() {
   noStroke();
-  if (programState === 0) {
-    inputTest();
-  }
   if (programState === 1) {
     // Initial background.
     background(0);
@@ -76,12 +73,6 @@ function mousePressed() {
   }
 }
 
-function inputTest() {
-  background(255);
-  let userLoginInput = createInput("").size(200);
-  userLoginInput.position(windowWidth/2, windowHeight/2);
-}
-
 function introduction() {
   osGiphy.updateDisplay();
   push();
@@ -108,8 +99,16 @@ function login() {
   fill(255);
   rect(windowWidth/2, windowHeight/2, 500, 500);
   imageMode(CENTER);
-  image(userLogin, windowWidth/2, windowHeight/2-100, 200, 200);
+  image(userLogin, windowWidth/2, windowHeight/2-60, 200, 200);
   pop();
+  passwordBar();
+}
+
+function passwordBar() {
+  let userLoginInput = createInput().size(200);
+  userLoginInput.position(windowWidth/2-100, windowHeight/2+50);
+  let typingAllowed = createButton();
+  typingAllowed.position(input.x + input.width);
 }
 
 // Timer for timing events at the beginning and during the program.
