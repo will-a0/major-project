@@ -11,7 +11,8 @@ let programState;
 let powerOnButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
-let osGiphy, bootMusic, loginMusic, userLogin;
+let osGiphy, bootMusic;
+let userLoginMusicPlayed = false, loginMusic, userLogin;
 
 function preload() {
   powerOnImage = loadImage("assets/poweron.png");
@@ -32,13 +33,16 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 1;
+  programState = 0;
   bootMusic.setVolume(1.0);
-  loginMusic.setVolume(1.0);
+  loginMusic.setVolume(0.7);
 }
 
 function draw() {
   noStroke();
+  if (programState === 0) {
+    inputTest();
+  }
   if (programState === 1) {
     // Initial background.
     background(0);
@@ -72,6 +76,12 @@ function mousePressed() {
   }
 }
 
+function inputTest() {
+  background(255);
+  let userLoginInput = createInput("").size(200);
+  userLoginInput.position(windowWidth/2, windowHeight/2);
+}
+
 function introduction() {
   osGiphy.updateDisplay();
   push();
@@ -82,13 +92,16 @@ function introduction() {
   text("auOS", windowWidth/2, windowHeight/2);
   if (loadingAlert.isDone()) {
     textSize(20);
-    text("L O A D I N G . . .", windowWidth/2+10, windowHeight/2+300);
+    text("L O A D I N G . . .", windowWidth/2+10, windowHeight/2+350);
   }
   pop();
 }
 
 function login() {
-  //loginMusic.play();
+  if (userLoginMusicPlayed === false) {
+    loginMusic.play();
+    userLoginMusicPlayed = true;
+  }
   background(128, 0, 32);
   push();
   rectMode(CENTER);
