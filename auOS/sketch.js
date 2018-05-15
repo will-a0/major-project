@@ -34,13 +34,14 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 1;
+  programState = 0;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
 }
 
 function draw() {
   noStroke();
+  login();
   if (programState === 1) {
     // Initial background.
     background(0);
@@ -103,18 +104,21 @@ function login() {
   fill(255);
   rect(windowWidth/2, windowHeight/2, 500, 500);
   imageMode(CENTER);
-  image(userLogin, windowWidth/2, windowHeight/2-60, 200, 200);
+  image(userLogin, windowWidth/2, windowHeight/2-100, 200, 200);
   pop();
+  textSize(30);
+  textAlign(CENTER, CENTER);
   passwordBar();
 }
 
 function passwordBar() {
-  proceedButton = new Button(windowWidth/2-30, windowHeight/2+125, 50, 50, 0, 0);
+  proceedButton = new Button(windowWidth/2-25, windowHeight/2+125, 50, 50, 0, 0);
   proceedButton.displayer();
-  image(proceed, windowWidth/2-30, windowHeight/2+125, 50, 50);
+  image(proceed, windowWidth/2-25, windowHeight/2+125, 50, 50);
   password = "auos10";
-  userLoginInput = createInput().size(300);
+  userLoginInput = createInput("","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+50);
+  userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
 
   inputGiven = userLoginInput.value();
