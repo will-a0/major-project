@@ -11,7 +11,7 @@ let programState;
 let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
-let osGiphy, bootMusic;
+let osGiphy, bootMusic, errorSound;
 let userLoginMusicPlayed = false, loginMusic, userLogin;
 let userLoginInput, password, inputGiven, proceed;
 
@@ -23,6 +23,7 @@ function preload() {
   auOS7 = loadImage("assets/auOS-7.png"), auOS8 = loadImage("assets/auOS-8.png");
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
+  //errorSound = loadSound("");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
 }
 
@@ -34,14 +35,13 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 0;
+  programState = 3;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
 }
 
 function draw() {
   noStroke();
-  login();
   if (programState === 1) {
     // Initial background.
     background(0);
@@ -56,12 +56,12 @@ function draw() {
     if (startup.isDone()) {
       introduction();
       if (!bootMusic.isPlaying()) {
-        login();
+        programState = 3;
       }
     }
   }
   else if (programState === 3) {
-    desktop();
+    login();
   }
 }
 
@@ -73,6 +73,17 @@ function mousePressed() {
         let fullScreen = fullscreen();
         fullscreen(!fullScreen);
         programState = 2;
+      }
+    }
+  }
+  if (programState === 3) {
+    if (proceedButton.isClicked()) {
+      inputGiven = userLoginInput.value();
+      if (inputGiven === password) {
+        desktop();
+      }
+      else {
+        errorSound.play();
       }
     }
   }
@@ -106,13 +117,16 @@ function login() {
   imageMode(CENTER);
   image(userLogin, windowWidth/2, windowHeight/2-100, 200, 200);
   pop();
-  textSize(30);
+  textSize(15);
   textAlign(CENTER, CENTER);
+  textFont("verdana");
+  fill(105,105,105);
+  text("ENTER PASSWORD (auos10)", windowWidth/2-42, windowHeight/2 +35);
   passwordBar();
 }
 
 function passwordBar() {
-  proceedButton = new Button(windowWidth/2-25, windowHeight/2+125, 50, 50, 0, 0);
+  proceedButton = new Button(windowWidth/2-25, windowHeight/2+125, 50, 50, 255, 255);
   proceedButton.displayer();
   image(proceed, windowWidth/2-25, windowHeight/2+125, 50, 50);
   password = "auos10";
@@ -120,11 +134,6 @@ function passwordBar() {
   userLoginInput.position(windowWidth/2-150, windowHeight/2+50);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
-
-  inputGiven = userLoginInput.value();
-  if (userLoginInput.value() === password && proceedButton.isClicked()) {
-    programState = 3;
-  }
 }
 
 function desktop() {
