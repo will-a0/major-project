@@ -8,11 +8,12 @@
 let fadeAnimation;
 let systemBoot, startup, loadingAlert;
 let programState;
-let powerOnButton;
+let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
 let osGiphy, bootMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin;
+let userLoginInput, password, inputGiven, proceed;
 
 function preload() {
   powerOnImage = loadImage("assets/poweron.png");
@@ -22,7 +23,7 @@ function preload() {
   auOS7 = loadImage("assets/auOS-7.png"), auOS8 = loadImage("assets/auOS-8.png");
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
-  userLogin = loadImage("assets/userlogin.png");
+  userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
 }
 
 function setup() {
@@ -57,6 +58,9 @@ function draw() {
         login();
       }
     }
+  }
+  else if (programState === 3) {
+    desktop();
   }
 }
 
@@ -105,10 +109,22 @@ function login() {
 }
 
 function passwordBar() {
-  let userLoginInput = createInput().size(200);
-  userLoginInput.position(windowWidth/2-100, windowHeight/2+50);
-  let typingAllowed = createButton();
-  typingAllowed.position(input.x + input.width);
+  proceedButton = new Button(windowWidth/2-30, windowHeight/2+125, 50, 50, 0, 0);
+  proceedButton.displayer();
+  image(proceed, windowWidth/2-30, windowHeight/2+125, 50, 50);
+  password = "auos10";
+  userLoginInput = createInput().size(300);
+  userLoginInput.position(windowWidth/2-150, windowHeight/2+50);
+  userLoginInput.focus();
+
+  inputGiven = userLoginInput.value();
+  if (userLoginInput.value() === password && proceedButton.isClicked()) {
+    programState = 3;
+  }
+}
+
+function desktop() {
+  background(255);
 }
 
 // Timer for timing events at the beginning and during the program.
