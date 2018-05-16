@@ -12,7 +12,7 @@ let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
 let osGiphy, bootMusic, errorSound;
-let userLoginMusicPlayed = false, loginMusic, userLogin;
+let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false;
 let userLoginInput, password, inputGiven, proceed;
 
 function preload() {
@@ -23,7 +23,7 @@ function preload() {
   auOS7 = loadImage("assets/auOS-7.png"), auOS8 = loadImage("assets/auOS-8.png");
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
-  //errorSound = loadSound("");
+  errorSound = loadSound("music/errorsound.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
 }
 
@@ -38,6 +38,7 @@ function setup() {
   programState = 3;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
+  errorSound.setVolume(0.7);
 }
 
 function draw() {
@@ -80,10 +81,17 @@ function mousePressed() {
     if (proceedButton.isClicked()) {
       inputGiven = userLoginInput.value();
       if (inputGiven === password) {
+        userLoginInput.remove();
         desktop();
       }
       else {
-        errorSound.play();
+        if (errorSoundPlayed === false) {
+          errorSound.play();
+          errorSoundPlayed = true;
+        }
+        userLoginInput.remove();
+        login();
+        errorSoundPlayed === false;
       }
     }
   }
@@ -115,7 +123,7 @@ function login() {
   fill(255);
   rect(windowWidth/2, windowHeight/2, 500, 500);
   imageMode(CENTER);
-  image(userLogin, windowWidth/2, windowHeight/2-100, 200, 200);
+  image(userLogin, windowWidth/2, windowHeight/2-80, 200, 200);
   pop();
   textSize(15);
   textAlign(CENTER, CENTER);
