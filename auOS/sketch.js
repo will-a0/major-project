@@ -13,7 +13,7 @@ let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
 let osGiphy, bootMusic, errorSound;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false;
-let userLoginInput, password, inputGiven, proceed;
+let userLoginInput, password, nameInputGiven, passInputGiven, proceed, userName;
 
 function preload() {
   powerOnImage = loadImage("assets/poweron.png");
@@ -35,7 +35,7 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 3;
+  programState = 1;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
   errorSound.setVolume(0.7);
@@ -64,6 +64,9 @@ function draw() {
   else if (programState === 3) {
     login();
   }
+  else if (programState === 4) {
+    //Something else later to be defined...
+  }
 }
 
 function mousePressed() {
@@ -79,19 +82,23 @@ function mousePressed() {
   }
   if (programState === 3) {
     if (proceedButton.isClicked()) {
-      inputGiven = userLoginInput.value();
-      if (inputGiven === password) {
+      nameInputGiven = userName.value();
+      passInputGiven = userLoginInput.value();
+      if (passInputGiven === password && nameInputGiven !== "") {
+        userName.remove();
         userLoginInput.remove();
         desktop();
+        programState = 4;
       }
       else {
         if (errorSoundPlayed === false) {
           errorSound.play();
           errorSoundPlayed = true;
+          errorSoundPlayed = false;
         }
+        userName.remove();
         userLoginInput.remove();
         login();
-        errorSoundPlayed === false;
       }
     }
   }
@@ -123,23 +130,39 @@ function login() {
   fill(255);
   rect(windowWidth/2, windowHeight/2, 500, 500);
   imageMode(CENTER);
-  image(userLogin, windowWidth/2, windowHeight/2-80, 200, 200);
+  image(userLogin, windowWidth/2, windowHeight/2-110, 200, 200);
   pop();
   textSize(15);
   textAlign(CENTER, CENTER);
   textFont("verdana");
   fill(105,105,105);
-  text("ENTER PASSWORD (auos10)", windowWidth/2-42, windowHeight/2 +35);
-  passwordBar();
+  text("ENTER USERNAME", windowWidth/2-81, windowHeight/2+5);
+  text("ENTER PASSWORD (auos10)", windowWidth/2-42, windowHeight/2+85);
+  userNameAndPasswordBars();
 }
 
-function passwordBar() {
-  proceedButton = new Button(windowWidth/2-25, windowHeight/2+125, 50, 50, 255, 255);
+function userNameAndPasswordBars() {
+  // Error message.
+  if (passInputGiven !== password || nameInputGiven === "") {
+    fill(204, 0, 0);
+    text("No username or, password entered incorrectly. Please try again.",
+      windowWidth/2, windowHeight/2+230);
+  }
+
+  // Proceed button
+  proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255);
   proceedButton.displayer();
-  image(proceed, windowWidth/2-25, windowHeight/2+125, 50, 50);
+  image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
+
+  // Username.
+  userName = createInput("","text").size(300);
+  userName.position(windowWidth/2-150, windowHeight/2+20);
+  userName.style("font-size", "30px");
+
+  // Password.
   password = "auos10";
   userLoginInput = createInput("","password").size(300);
-  userLoginInput.position(windowWidth/2-150, windowHeight/2+50);
+  userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
 }
