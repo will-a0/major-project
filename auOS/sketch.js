@@ -29,13 +29,14 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth+5, windowHeight+98);
+  fadeAnimation = createGraphics(windowWidth, windowHeight);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 1;
+  programState = 3;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.7);
   errorSound.setVolume(0.7);
@@ -149,7 +150,7 @@ function userNameAndPasswordBars() {
       windowWidth/2, windowHeight/2+230);
   }
 
-  // Proceed button
+  // Proceed button.
   proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255);
   proceedButton.displayer();
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
@@ -168,7 +169,9 @@ function userNameAndPasswordBars() {
 }
 
 function desktop() {
-  background(255);
+  background(0);
+  //fill(0, 8);
+  // rect(0, 0, windowWidth, windowHeight);
 }
 
 // Timer for timing events at the beginning and during the program.
@@ -214,7 +217,6 @@ class Button {
     }
     rect(this.leftSide, this.topSide, this.buttonWidth, this.buttonHeight);
   }
-
   isClicked() {
     if (mouseIsPressed && mouseX >= this.leftSide && mouseX <= this.rightSide && mouseY >= this.topSide && mouseY <= this.bottomSide) {
       return true;
