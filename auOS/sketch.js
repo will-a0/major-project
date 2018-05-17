@@ -28,7 +28,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth+1000, windowHeight+1000);
+  createCanvas(windowWidth+5, windowHeight+98);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);

@@ -5,3 +5,8 @@ body, html {
 ::-webkit-scrollbar {
     display: none;
 }
+
+/* Disable mouse scrolling using CSS - William. */
+body{
+overflow: hidden;
+}
