@@ -11,9 +11,11 @@ let programState;
 let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
-let osGiphy, bootMusic, errorSound;
-let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false;
-let userLoginInput, password, nameInputGiven, passInputGiven, proceed, userName;
+let osGiphy, bootMusic, errorSound, welcomeMusic;
+let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
+  welcomeMusicPlayed = false;
+let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
+let desktopTimer;
 
 function preload() {
   powerOnImage = loadImage("assets/poweron.png");
@@ -23,12 +25,12 @@ function preload() {
   auOS7 = loadImage("assets/auOS-7.png"), auOS8 = loadImage("assets/auOS-8.png");
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
-  errorSound = loadSound("music/errorsound.mp3");
+  errorSound = loadSound("music/errorsound.mp3"), welcomeMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
 }
 
 function setup() {
-  createCanvas(windowWidth+5, windowHeight+98);
+  createCanvas(windowWidth+1000, windowHeight+1000);
   fadeAnimation = createGraphics(windowWidth, windowHeight);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
@@ -38,8 +40,9 @@ function setup() {
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
   programState = 3;
   bootMusic.setVolume(1.0);
-  loginMusic.setVolume(0.7);
-  errorSound.setVolume(0.7);
+  loginMusic.setVolume(0.5);
+  errorSound.setVolume(0.5);
+  welcomeMusic.setVolume(1.0);
 }
 
 function draw() {
@@ -66,7 +69,10 @@ function draw() {
     login();
   }
   else if (programState === 4) {
-    //Something else later to be defined...
+    desktopWelcome();
+  }
+  else if (programState === 5) {
+    desktop();
   }
 }
 
@@ -84,12 +90,18 @@ function mousePressed() {
   if (programState === 3) {
     if (proceedButton.isClicked()) {
       nameInputGiven = userName.value();
+      nameInputLength = userName.value.length;
       passInputGiven = userLoginInput.value();
-      if (passInputGiven === password && nameInputGiven !== "") {
+      if (passInputGiven === password && (nameInputGiven !== "" && nameInputGiven !== " "
+      && nameInputGiven !== "  " && nameInputGiven !== "   " && nameInputGiven !== "    "
+      && nameInputGiven !== "     " && nameInputGiven !== "      "
+      && nameInputGiven !== "       " && nameInputGiven !== "        "
+      && nameInputGiven !== "         " && nameInputGiven !== "          ")) {
         userName.remove();
         userLoginInput.remove();
-        desktop();
+        desktopTimer = new Timer(3000);
         programState = 4;
+        redraw();
       }
       else {
         if (errorSoundPlayed === false) {
@@ -146,7 +158,12 @@ function userNameAndPasswordBars() {
   // Error message.
   if (passInputGiven !== password || nameInputGiven === "") {
     fill(204, 0, 0);
-    text("No username or, password entered incorrectly. Please try again.",
+    text("No username, or password entered incorrectly. Please try again.",
+      windowWidth/2, windowHeight/2+230);
+  }
+  else {
+    fill(204, 0, 0);
+    text("* You must enter a valid username and the correct password *",
       windowWidth/2, windowHeight/2+230);
   }
 
@@ -168,10 +185,26 @@ function userNameAndPasswordBars() {
   userLoginInput.focus();
 }
 
-function desktop() {
+function desktopWelcome() {
   background(0);
-  //fill(0, 8);
-  // rect(0, 0, windowWidth, windowHeight);
+  if (welcomeMusicPlayed === false) {
+    welcomeMusic.play();
+    welcomeMusicPlayed = true;
+  }
+  fill(255);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  textFont("verdana");
+  text("|  Preparing your desktop, " + nameInputGiven + "  |", windowWidth/2, windowHeight/2);
+  text(".   .   .", windowWidth/2, windowHeight/2+50);
+  if (!welcomeMusic.isPlaying()) {
+    programState = 5;
+    redraw();
+  }
+}
+
+function desktop() {
+  background(255);
 }
 
 // Timer for timing events at the beginning and during the program.
