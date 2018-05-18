@@ -15,7 +15,6 @@ let osGiphy, bootMusic, errorSound, welcomeMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
   welcomeMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
-let desktopTimer;
 
 function preload() {
   powerOnImage = loadImage("assets/poweron.png");
@@ -38,7 +37,7 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 3;
+  programState = 1;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -99,9 +98,8 @@ function mousePressed() {
       && nameInputGiven !== "         " && nameInputGiven !== "          ")) {
         userName.remove();
         userLoginInput.remove();
-        desktopTimer = new Timer(3000);
         programState = 4;
-        redraw();
+        loop();
       }
       else {
         if (errorSoundPlayed === false) {
@@ -123,10 +121,13 @@ function introduction() {
   textSize(80);
   textAlign(CENTER, CENTER);
   fill(255, 255, 255, 30);
-  textFont("verdana");
+  textFont("avenir");
   text("auOS", windowWidth/2, windowHeight/2);
+  textSize(15);
+  text("V E R S I O N  0 . 0 . 1", windowWidth/2, windowHeight/2+50);
   if (loadingAlert.isDone()) {
     textSize(20);
+    text("_-|-_", windowWidth/2, windowHeight/2+300);
     text("L O A D I N G . . .", windowWidth/2+10, windowHeight/2+350);
   }
   pop();
@@ -137,6 +138,7 @@ function login() {
     loginMusic.play();
     userLoginMusicPlayed = true;
   }
+  // Visual display.
   background(128, 0, 32);
   push();
   rectMode(CENTER);
@@ -147,14 +149,11 @@ function login() {
   pop();
   textSize(15);
   textAlign(CENTER, CENTER);
-  textFont("verdana");
-  fill(105,105,105);
-  text("ENTER USERNAME", windowWidth/2-81, windowHeight/2+5);
-  text("ENTER PASSWORD (auos10)", windowWidth/2-42, windowHeight/2+85);
-  userNameAndPasswordBars();
-}
+  textFont("avenir");
+  fill(0);
+  text("ENTER USERNAME", windowWidth/2-85, windowHeight/2+5);
+  text("ENTER PASSWORD (auos10)", windowWidth/2-55, windowHeight/2+85);
 
-function userNameAndPasswordBars() {
   // Error message.
   if (passInputGiven !== password || nameInputGiven === "") {
     fill(204, 0, 0);
@@ -186,7 +185,7 @@ function userNameAndPasswordBars() {
 }
 
 function desktopWelcome() {
-  background(0);
+  background(0, 0, 28, 40);
   if (welcomeMusicPlayed === false) {
     welcomeMusic.play();
     welcomeMusicPlayed = true;
@@ -194,12 +193,11 @@ function desktopWelcome() {
   fill(255);
   textSize(30);
   textAlign(CENTER, CENTER);
-  textFont("verdana");
-  text("|  Preparing your desktop, " + nameInputGiven + "  |", windowWidth/2, windowHeight/2);
+  textFont("avenir");
+  text("Preparing your desktop, " + nameInputGiven, windowWidth/2, windowHeight/2);
   text(".   .   .", windowWidth/2, windowHeight/2+50);
   if (!welcomeMusic.isPlaying()) {
     programState = 5;
-    redraw();
   }
 }
 
