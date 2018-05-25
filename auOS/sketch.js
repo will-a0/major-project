@@ -15,8 +15,10 @@ let osGiphy, bootMusic, errorSound, welcomeMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
   welcomeMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
+let auosDesktopLogo;
 
 function preload() {
+  // All assets.
   powerOnImage = loadImage("assets/poweron.png");
   auOS1 = loadImage("assets/auOS-1.png"), auOS2 = loadImage("assets/auOS-2.png");
   auOS3 = loadImage("assets/auOS-3.png"), auOS4 = loadImage("assets/auOS-4.png");
@@ -26,6 +28,7 @@ function preload() {
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
   errorSound = loadSound("music/errorsound.mp3"), welcomeMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
+  auosDesktopLogo = loadImage("assets/auosdesktoplogo.png");
 }
 
 function setup() {
@@ -37,7 +40,7 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 1;
+  programState = 3;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -76,6 +79,7 @@ function draw() {
 }
 
 function mousePressed() {
+  // Power button mechanism.
   if (programState === 1) {
     if (mouseIsPressed) {
       if (powerOnButton.isClicked()) {
@@ -87,6 +91,7 @@ function mousePressed() {
     }
   }
   if (programState === 3) {
+    // Login conditionals.
     if (proceedButton.isClicked()) {
       nameInputGiven = userName.value();
       nameInputLength = userName.value.length;
@@ -116,19 +121,18 @@ function mousePressed() {
 }
 
 function introduction() {
+  // Introduction.
   osGiphy.updateDisplay();
   push();
   textSize(80);
   textAlign(CENTER, CENTER);
   fill(255, 255, 255, 30);
-  textFont("avenir");
+  textFont("verdana");
   text("auOS", windowWidth/2, windowHeight/2);
-  textSize(15);
-  text("V E R S I O N  0 . 0 . 1", windowWidth/2, windowHeight/2+50);
   if (loadingAlert.isDone()) {
     textSize(20);
     text("_-|-_", windowWidth/2, windowHeight/2+300);
-    text("L O A D I N G . . .", windowWidth/2+10, windowHeight/2+350);
+    text("L O A D I N G . . .", windowWidth/2, windowHeight/2+350);
   }
   pop();
 }
@@ -149,10 +153,10 @@ function login() {
   pop();
   textSize(15);
   textAlign(CENTER, CENTER);
-  textFont("avenir");
+  textFont("verdana");
   fill(0);
-  text("ENTER USERNAME", windowWidth/2-85, windowHeight/2+5);
-  text("ENTER PASSWORD (auos10)", windowWidth/2-55, windowHeight/2+85);
+  text("ENTER USERNAME", windowWidth/2-81, windowHeight/2+5);
+  text("ENTER PASSWORD (auos10)", windowWidth/2-43, windowHeight/2+85);
 
   // Error message.
   if (passInputGiven !== password || nameInputGiven === "") {
@@ -172,37 +176,100 @@ function login() {
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
   // Username.
-  userName = createInput("","text").size(300);
+  userName = createInput("Ahiahonu","text").size(300);
   userName.position(windowWidth/2-150, windowHeight/2+20);
   userName.style("font-size", "30px");
 
   // Password.
   password = "auos10";
-  userLoginInput = createInput("","password").size(300);
+  userLoginInput = createInput("auos10","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
 }
 
 function desktopWelcome() {
+  // User welcome screen.
   background(0, 0, 28, 40);
   if (welcomeMusicPlayed === false) {
     welcomeMusic.play();
     welcomeMusicPlayed = true;
   }
   fill(255);
-  textSize(30);
+  textSize(50);
   textAlign(CENTER, CENTER);
-  textFont("avenir");
+  textFont("verdana");
   text("Preparing your desktop, " + nameInputGiven, windowWidth/2, windowHeight/2);
   text(".   .   .", windowWidth/2, windowHeight/2+50);
   if (!welcomeMusic.isPlaying()) {
+    clear();
     programState = 5;
   }
 }
 
 function desktop() {
-  background(255);
+  // Desktop Design.
+  background(128, 0, 32, 20);
+  image(auosDesktopLogo, windowWidth-170, windowHeight-100, 150, 80);
+  fill(0, 40);
+  rect(0, 0, 150, windowHeight);
+  textSize(100);
+  fill(255, 30);
+  text("auOS", windowWidth/2, windowHeight/2);
+
+  // User box.
+  push();
+  fill(0, 40);
+  rectMode(CENTER);
+  rect(windowWidth-170, windowHeight/2, 300, 300);
+  pop();
+  textSize(30);
+  fill(255);
+  text(nameInputGiven, windowWidth-170, windowHeight/2-110);
+  // Date.
+  let currentD = day();
+  let currentM = month();
+  let currentY = year();
+  // Date conditionals.
+  if (currentD < 10) {
+    currentD = "0" + currentD;
+  }
+  if (currentM < 10) {
+    currentM = "0" + currentM;
+  }
+  // Date display.
+  text(currentD + "/" + currentM + "/" + currentY, windowWidth-170, windowHeight/2-60);
+  // Clock.
+  let clockH = hour();
+  let clockM = minute();
+  let clockS = second();
+  let meridiem = "AM";
+  // Clock conditionals.
+  if (clockS < 10) {
+    clockS = "0" + clockS;
+  }
+  if (clockM < 10) {
+    clockM = "0" + clockM;
+  }
+  if (clockH > 12) {
+    clockH = clockH - 12;
+    meridiem = "PM";
+  }
+  // 0 AM and 0 PM is converted to 12.
+  if (clockH === 0) {
+    clockH = 12;
+  }
+  // Clock display.
+  text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2-10);
+  // Control Panel.
+
+}
+
+function keyPressed() {
+  if (key === "f" || key === "F") {
+    let fullScreen = fullscreen();
+    fullscreen(!fullScreen);
+  }
 }
 
 // Timer for timing events at the beginning and during the program.
