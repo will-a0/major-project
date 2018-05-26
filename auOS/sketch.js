@@ -95,7 +95,7 @@ function mousePressed() {
     // Login conditionals.
     if (proceedButton.isClicked()) {
       nameInputGiven = userName.value();
-      nameInputLength = userName.value.length;
+      nameInputLength = nameInputGiven.length;
       passInputGiven = userLoginInput.value();
       if (passInputGiven === password && (nameInputGiven !== "" && nameInputGiven !== " "
       && nameInputGiven !== "  " && nameInputGiven !== "   " && nameInputGiven !== "    "
