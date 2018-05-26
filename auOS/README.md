@@ -31,15 +31,15 @@ Timeline:
 
 May 12th-13th - Read about compiler’s and how achievable it is to make one. Also begin working on opening screen.
 
-May 14th-17th - Complete opening screen; begin creating password bar and settings app (including shut down functionality, drag and drop and so on).
+May 14th-17th - Complete opening screen; begin creating login screen. 
 
-May 18th-26th - Complete settings app, incorporate games already made as applications and possibly make one from scratch. Make music application (should not take that long for music application since music already exists and just called).
+May 18th-26th - Work on desktop functionality and fundamental aspects of the desktop (shut down, log out, possibly drag and drop, aesthetics, organization and display applications).
 
-27th-2nd - Finishing up game applications and music application and work on notes application.
+27th-2nd - Continue working on desktop functionality and being work on basic settings app and music app (if time, create notes app).
 
-3rd-9th - Finish notes application and other things not completed.
+3rd-9th - Incorporate games already made as applications and complete more organizational and aesthetic based tasks (if time, create notes app). 
 
-10th-13th - Fix up any hiccups.
+10th-13th - Finishing touches/fix up any hiccups.
 
 
  
