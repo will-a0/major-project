@@ -15,7 +15,7 @@ let osGiphy, bootMusic, errorSound, welcomeMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
   welcomeMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
-let auosDesktopLogo;
+let auosDesktopLogo, logoutPic, settingsPic;
 
 function preload() {
   // All assets.
@@ -28,7 +28,8 @@ function preload() {
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
   errorSound = loadSound("music/errorsound.mp3"), welcomeMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
-  auosDesktopLogo = loadImage("assets/auosdesktoplogo.png");
+  auosDesktopLogo = loadImage("assets/auosdesktoplogo.png"), logoutPic = loadImage("assets/logoutpic.png");
+  settingsPic = loadImage("assets/settingspic.png");
 }
 
 function setup() {
@@ -38,7 +39,7 @@ function setup() {
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
-  powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0);
+  powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
   programState = 3;
   bootMusic.setVolume(1.0);
@@ -171,7 +172,7 @@ function login() {
   }
 
   // Proceed button.
-  proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255);
+  proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255, 255, 255, 255, 255);
   proceedButton.displayer();
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
@@ -223,7 +224,7 @@ function desktop() {
   rectMode(CENTER);
   rect(windowWidth-170, windowHeight/2, 300, 300);
   pop();
-  textSize(30);
+  textSize(25);
   fill(255);
   text(nameInputGiven, windowWidth-170, windowHeight/2-110);
   // Date.
@@ -262,7 +263,18 @@ function desktop() {
   // Clock display.
   text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2-10);
   // Control Panel.
-
+  let settingsButton = new Button(windowWidth-240, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
+  let powerOffButton = new Button(windowWidth-190, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
+  let logoutButton = new Button(windowWidth-140, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
+  // Settings button display.
+  settingsButton.displayer();
+  image(settingsPic, windowWidth-247, windowHeight-377, 60, 60);
+  // Power off button display.
+  powerOffButton.displayer();
+  image(powerOnImage, windowWidth-190, windowHeight-370, 45, 45);
+  // Logout button display.
+  logoutButton.displayer();
+  image(logoutPic, windowWidth-135, windowHeight-365, 35, 35);
 }
 
 function keyPressed() {
@@ -298,20 +310,24 @@ class Timer {
 
 // Buttons for the program.
 class Button {
-  constructor(x, y, buttonWidth, buttonHeight, offFill, onFill) {
+  constructor(x, y, buttonWidth, buttonHeight, offFillR, offFillG, offFillB, onFillR, onFillG, onFillB) {
     this.buttonWidth = buttonWidth;
     this.buttonHeight = buttonHeight;
     this.leftSide = x;
     this.topSide = y;
     this.rightSide = this.leftSide + this.buttonWidth;
     this.bottomSide = this.topSide + this.buttonHeight;
-    this.offFill = offFill;
-    this.onFill = onFill;
+    this.offFillR = offFillR;
+    this.offFillG = offFillG;
+    this.offFillB = offFillB;
+    this.onFillR = onFillR;
+    this.onFillG = onFillG;
+    this.onFillB = onFillB;
   }
   displayer() {
-    fill(this.offFill);
+    fill(this.offFillR, this.offFillG, this.offFillB);
     if (mouseX >= this.leftSide && mouseX <= this.rightSide && mouseY >= this.topSide && mouseY <= this.bottomSide) {
-      fill(this.onFill);
+      fill(this.onFillR, this.onFillG, this.onFillB);
     }
     rect(this.leftSide, this.topSide, this.buttonWidth, this.buttonHeight);
   }
