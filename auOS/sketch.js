@@ -211,8 +211,8 @@ function desktopWelcome() {
 function desktop() {
   // Desktop Design.
   background(128, 0, 32, 20);
-  image(auosDesktopLogo, windowWidth-170, windowHeight-100, 150, 80);
-  fill(0, 40);
+  image(auosDesktopLogo, 10, windowHeight/2+300, 130, 80);
+  fill(0, 30);
   rect(0, 0, 150, windowHeight);
   textSize(100);
   fill(255, 30);
@@ -220,13 +220,13 @@ function desktop() {
 
   // User box.
   push();
-  fill(0, 40);
+  fill(0, 30);
   rectMode(CENTER);
-  rect(windowWidth-170, windowHeight/2, 300, 300);
+  rect(windowWidth-170, windowHeight/2+250, 300, 250);
   pop();
   textSize(25);
   fill(255);
-  text(nameInputGiven, windowWidth-170, windowHeight/2-110);
+  text(nameInputGiven, windowWidth-170, windowHeight/2+165);
   // Date.
   let currentD = day();
   let currentM = month();
@@ -239,7 +239,7 @@ function desktop() {
     currentM = "0" + currentM;
   }
   // Date display.
-  text(currentD + "/" + currentM + "/" + currentY, windowWidth-170, windowHeight/2-60);
+  text(currentD + "/" + currentM + "/" + currentY, windowWidth-170, windowHeight/2+215);
   // Clock.
   let clockH = hour();
   let clockM = minute();
@@ -261,20 +261,20 @@ function desktop() {
     clockH = 12;
   }
   // Clock display.
-  text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2-10);
+  text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2+265);
   // Control Panel.
-  let settingsButton = new Button(windowWidth-240, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
-  let powerOffButton = new Button(windowWidth-190, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
-  let logoutButton = new Button(windowWidth-140, windowHeight-370, 45, 45, 51, 0, 25, 102, 0, 51);
+  let settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  let powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  let logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
   // Settings button display.
   settingsButton.displayer();
-  image(settingsPic, windowWidth-247, windowHeight-377, 60, 60);
+  image(settingsPic, windowWidth-248, windowHeight/2+298, 60, 60);
   // Power off button display.
   powerOffButton.displayer();
-  image(powerOnImage, windowWidth-190, windowHeight-370, 45, 45);
+  image(powerOnImage, windowWidth-190, windowHeight/2+305, 45, 45);
   // Logout button display.
   logoutButton.displayer();
-  image(logoutPic, windowWidth-135, windowHeight-365, 35, 35);
+  image(logoutPic, windowWidth-135, windowHeight/2+310, 35, 35);
 }
 
 function keyPressed() {
