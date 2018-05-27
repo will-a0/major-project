@@ -16,6 +16,7 @@ let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = fals
   welcomeMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
 let auosDesktopLogo, logoutPic, settingsPic;
+let settingsButton, powerOffButton, logoutButton;
 
 function preload() {
   // All assets.
@@ -50,6 +51,7 @@ function setup() {
 
 function draw() {
   noStroke();
+  // OS functionality states.
   if (programState === 1) {
     // Initial background.
     background(0);
@@ -76,6 +78,9 @@ function draw() {
   }
   else if (programState === 5) {
     desktop();
+  }
+  else if (programState === 6) {
+    shutdownConditionals();
   }
 }
 
@@ -117,6 +122,11 @@ function mousePressed() {
         userLoginInput.remove();
         login();
       }
+    }
+  }
+  if (programState === 5) {
+    if (powerOffButton.isClicked()) {
+      programState = 6;
     }
   }
 }
@@ -263,9 +273,9 @@ function desktop() {
   // Clock display.
   text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2+265);
   // Control Panel.
-  let settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
-  let powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
-  let logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
   // Settings button display.
   settingsButton.displayer();
   image(settingsPic, windowWidth-248, windowHeight/2+298, 60, 60);
@@ -277,10 +287,36 @@ function desktop() {
   image(logoutPic, windowWidth-135, windowHeight/2+310, 35, 35);
 }
 
+function shutdownConditionals() {
+  fill(0, 10);
+  rect(0, 0, windowWidth, windowHeight);
+  push();
+  fill(255);
+  rectMode(CENTER);
+  rect(windowWidth/2, windowHeight/2, 400, 200);
+  pop();
+  fill(0);
+  textSize(30);
+  textFont("verdana");
+  text("Shut down auOS?", windowWidth/2, windowHeight/2-40);
+  text("O - Yes | X - No", windowWidth/2, windowHeight/2+40);
+}
+
 function keyPressed() {
+  // Temporary for testing.
   if (key === "f" || key === "F") {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
+  }
+  if (programState === 6) {
+    // Shut down conditionals.
+    if (key === "o" || key === "O") {
+      programState = 1;
+    }
+    else if (key === "x" || key === "X") {
+      clear();
+      programState = 5;
+    }
   }
 }
 
