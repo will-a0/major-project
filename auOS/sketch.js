@@ -11,9 +11,9 @@ let programState, powerSwitch;
 let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
-let osGiphy, bootMusic, errorSound, welcomeMusic;
+let osGiphy, bootMusic, errorSound, welcomeAndLogoutMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
-  welcomeMusicPlayed = false;
+  welcomeAndLogoutMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
 let auosDesktopLogo, logoutPic, settingsPic;
 let settingsButton, powerOffButton, logoutButton;
@@ -27,7 +27,7 @@ function preload() {
   auOS7 = loadImage("assets/auOS-7.png"), auOS8 = loadImage("assets/auOS-8.png");
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
-  errorSound = loadSound("music/errorsound.mp3"), welcomeMusic = loadSound("music/welcometodesktop.mp3");
+  errorSound = loadSound("music/errorsound.mp3"), welcomeAndLogoutMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
   auosDesktopLogo = loadImage("assets/auosdesktoplogo.png"), logoutPic = loadImage("assets/logoutpic.png");
   settingsPic = loadImage("assets/settingspic.png");
@@ -42,27 +42,27 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 1;
+  programState = "boot";
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
-  welcomeMusic.setVolume(1.0);
+  welcomeAndLogoutMusic.setVolume(1.0);
 }
 
 function draw() {
   noStroke();
   // OS functionality states.
-  if (programState === 1) {
+  if (programState === "boot") {
     // Initial background.
     background(0);
     powerOnButton.displayer();
     image(powerOnImage, windowWidth/2-50, windowHeight/2+150, 100, 100);
   }
-  if (programState !== 1) {
+  if (programState !== "boot") {
     // Program only runs in fullscreen.
     if (fullscreen()) {
       powerSwitch = "on";
-      if (programState === 2) {
+      if (programState === "power on") {
         // Introduction begins.
         if (systemBoot.isDone()) {
           background(110, 0, 60, 10);
@@ -70,24 +70,30 @@ function draw() {
         if (startup.isDone()) {
           introduction();
           if (!bootMusic.isPlaying()) {
-            programState = 3;
+            programState = "login";
           }
         }
       }
-      else if (programState === 3) {
+      else if (programState === "login") {
         login();
       }
-      else if (programState === 4) {
+      else if (programState === "desktop welcome") {
         desktopWelcome();
       }
-      else if (programState === 5) {
+      else if (programState === "desktop") {
         desktop();
       }
-      else if (programState === 6) {
+      else if (programState === "shutdown1") {
         shutdownConditionals();
       }
-      else if (programState === 7) {
+      else if (programState === "shutdown2") {
         shutdown();
+      }
+      else if (programState === "logout1") {
+        logoutConditionals();
+      }
+      else if (programState === "logout2") {
+        logout();
       }
     }
     else {
@@ -104,17 +110,17 @@ function draw() {
 
 function mousePressed() {
   // Power button mechanism.
-  if (programState === 1) {
+  if (programState === "boot") {
     if (mouseIsPressed) {
       if (powerOnButton.isClicked()) {
         bootMusic.play();
         let fullScreen = fullscreen();
         fullscreen(!fullScreen);
-        programState = 2;
+        programState = "power on";
       }
     }
   }
-  if (programState === 3) {
+  if (programState === "login") {
     // Login conditionals.
     if (proceedButton.isClicked()) {
       nameInputGiven = userName.value();
@@ -127,7 +133,7 @@ function mousePressed() {
       && nameInputGiven !== "         " && nameInputGiven !== "          ")) {
         userName.remove();
         userLoginInput.remove();
-        programState = 4;
+        programState = "desktop welcome";
         loop();
       }
       else {
@@ -142,9 +148,12 @@ function mousePressed() {
       }
     }
   }
-  if (programState === 5) {
+  if (programState === "desktop") {
     if (powerOffButton.isClicked()) {
-      programState = 6;
+      programState = "shutdown1";
+    }
+    else if (logoutButton.isClicked()) {
+      programState = "logout1";
     }
   }
 }
@@ -220,9 +229,9 @@ function login() {
 function desktopWelcome() {
   // User welcome screen.
   background(0, 0, 28, 40);
-  if (welcomeMusicPlayed === false) {
-    welcomeMusic.play();
-    welcomeMusicPlayed = true;
+  if (welcomeAndLogoutMusicPlayed === false) {
+    welcomeAndLogoutMusic.play();
+    welcomeAndLogoutMusicPlayed = true;
   }
   fill(255);
   textSize(50);
@@ -230,9 +239,9 @@ function desktopWelcome() {
   textFont("verdana");
   text("Preparing your desktop, " + nameInputGiven, windowWidth/2, windowHeight/2);
   text(".   .   .", windowWidth/2, windowHeight/2+50);
-  if (!welcomeMusic.isPlaying()) {
+  if (!welcomeAndLogoutMusic.isPlaying()) {
     clear();
-    programState = 5;
+    programState = "desktop";
   }
 }
 
@@ -348,21 +357,67 @@ function shutdown() {
   }
 }
 
+function logoutConditionals() {
+  fill(0, 10);
+  rect(0, 0, windowWidth, windowHeight);
+  push();
+  fill(255);
+  rectMode(CENTER);
+  rect(windowWidth/2, windowHeight/2, 400, 200);
+  pop();
+  fill(0);
+  textSize(30);
+  textFont("verdana");
+  text("Logout of auOS?", windowWidth/2, windowHeight/2-40);
+  text("O - Yes | X - No", windowWidth/2, windowHeight/2+40);
+  welcomeAndLogoutMusicPlayed = false;
+}
+
+function logout() {
+  background(0, 0, 28, 40);
+  if (welcomeAndLogoutMusicPlayed === false) {
+    welcomeAndLogoutMusic.play();
+    welcomeAndLogoutMusicPlayed = true;
+  }
+  fill(255);
+  textSize(50);
+  textAlign(CENTER, CENTER);
+  textFont("verdana");
+  text("Logging out. Good bye, " + nameInputGiven, windowWidth/2, windowHeight/2);
+  text(".   .   .", windowWidth/2, windowHeight/2+50);
+  if (!welcomeAndLogoutMusic.isPlaying()) {
+    clear();
+    programState = "login";
+  }
+}
+
 function keyPressed() {
   // Temporary for testing.
   if (key === "f" || key === "F") {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
   }
-  if (programState === 6 && powerSwitch === "on") {
+  // Shut down.
+  if (programState === "shutdown1" && powerSwitch === "on") {
     // Shut down conditionals.
     if (key === "o" || key === "O") {
       clear();
-      programState = 7;
+      programState = "shutdown2";
     }
     else if (key === "x" || key === "X") {
       clear();
-      programState = 5;
+      programState = "desktop";
+    }
+  }
+  // Log out.
+  if (programState === "logout1" && powerSwitch === "on") {
+    // Log out conditionals.
+    if (key === "o" || key === "O") {
+      programState = "logout2";
+    }
+    else if (key === "x" || key === "X") {
+      clear();
+      programState = "desktop";
     }
   }
 }
