@@ -195,6 +195,7 @@ function login() {
   fill(0);
   text("ENTER USERNAME", windowWidth/2-81, windowHeight/2+5);
   text("ENTER PASSWORD (auos10)", windowWidth/2-43, windowHeight/2+85);
+  welcomeAndLogoutMusicPlayed = false;
 
   // Error message.
   if (passInputGiven !== password || nameInputGiven === "") {
@@ -214,13 +215,13 @@ function login() {
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
   // Username.
-  userName = createInput("Ahiahonu","text").size(300);
+  userName = createInput("","text").size(300);
   userName.position(windowWidth/2-150, windowHeight/2+20);
   userName.style("font-size", "30px");
 
   // Password.
   password = "auos10";
-  userLoginInput = createInput("auos10","password").size(300);
+  userLoginInput = createInput("","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -386,6 +387,7 @@ function logout() {
   text("Logging out. Good bye, " + nameInputGiven, windowWidth/2, windowHeight/2);
   text(".   .   .", windowWidth/2, windowHeight/2+50);
   if (!welcomeAndLogoutMusic.isPlaying()) {
+    userLoginMusicPlayed = false;
     programState = "login";
   }
 }
