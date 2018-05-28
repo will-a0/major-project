@@ -6,8 +6,8 @@
 
 // Global variables set to be used later in the code.
 let fadeAnimation;
-let systemBoot, startup, loadingAlert;
-let programState;
+let systemBoot, startup, loadingAlert, bootMusicPlayed = false; // last variable in this row only used for shutdown.
+let programState, powerSwitch;
 let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
@@ -42,7 +42,7 @@ function setup() {
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = 3;
+  programState = 1;
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -58,29 +58,47 @@ function draw() {
     powerOnButton.displayer();
     image(powerOnImage, windowWidth/2-50, windowHeight/2+150, 100, 100);
   }
-  else if (programState === 2) {
-    // Introduction begins.
-    if (systemBoot.isDone()) {
-      background(110, 0, 60, 10);
-    }
-    if (startup.isDone()) {
-      introduction();
-      if (!bootMusic.isPlaying()) {
-        programState = 3;
+  if (programState !== 1) {
+    // Program only runs in fullscreen.
+    if (fullscreen()) {
+      powerSwitch = "on";
+      if (programState === 2) {
+        // Introduction begins.
+        if (systemBoot.isDone()) {
+          background(110, 0, 60, 10);
+        }
+        if (startup.isDone()) {
+          introduction();
+          if (!bootMusic.isPlaying()) {
+            programState = 3;
+          }
+        }
+      }
+      else if (programState === 3) {
+        login();
+      }
+      else if (programState === 4) {
+        desktopWelcome();
+      }
+      else if (programState === 5) {
+        desktop();
+      }
+      else if (programState === 6) {
+        shutdownConditionals();
+      }
+      else if (programState === 7) {
+        shutdown();
       }
     }
-  }
-  else if (programState === 3) {
-    login();
-  }
-  else if (programState === 4) {
-    desktopWelcome();
-  }
-  else if (programState === 5) {
-    desktop();
-  }
-  else if (programState === 6) {
-    shutdownConditionals();
+    else {
+      clear();
+      powerSwitch = "off";
+      fill(0, 30);
+      textSize(30);
+      textFont("verdana");
+      textAlign(CENTER, CENTER);
+      text("auOS runs in fullscreen only.", windowWidth/2, windowHeight/2);
+    }
   }
 }
 
@@ -143,7 +161,7 @@ function introduction() {
   if (loadingAlert.isDone()) {
     textSize(20);
     text("_-|-_", windowWidth/2, windowHeight/2+300);
-    text("L O A D I N G . . .", windowWidth/2, windowHeight/2+350);
+    text("L O A D I N G . . .", windowWidth/2+10, windowHeight/2+350);
   }
   pop();
 }
@@ -302,16 +320,45 @@ function shutdownConditionals() {
   text("O - Yes | X - No", windowWidth/2, windowHeight/2+40);
 }
 
+function shutdown() {
+  if (bootMusicPlayed === false) {
+    bootMusic.play();
+    bootMusicPlayed = true;
+  }
+  background(110, 0, 60, 10);
+  // Shutting down.
+  osGiphy.updateDisplay();
+  push();
+  textSize(80);
+  textAlign(CENTER, CENTER);
+  fill(255, 255, 255, 30);
+  textFont("verdana");
+  text("auOS", windowWidth/2, windowHeight/2);
+  textSize(20);
+  text("_-|-_", windowWidth/2, windowHeight/2+300);
+  text("S H U T T I N G  D O W N . . .", windowWidth/2+10, windowHeight/2+350);
+  if (!bootMusic.isPlaying()) {
+    fill(0);
+    rect(0, 0, windowWidth, windowHeight);
+    fill(255);
+    textSize(30);
+    textFont("verdana");
+    textAlign(CENTER, CENTER);
+    text("Reload to power on auOS.", windowWidth/2, windowHeight/2);
+  }
+}
+
 function keyPressed() {
   // Temporary for testing.
   if (key === "f" || key === "F") {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
   }
-  if (programState === 6) {
+  if (programState === 6 && powerSwitch === "on") {
     // Shut down conditionals.
     if (key === "o" || key === "O") {
-      programState = 1;
+      clear();
+      programState = 7;
     }
     else if (key === "x" || key === "X") {
       clear();
