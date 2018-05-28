@@ -386,7 +386,6 @@ function logout() {
   text("Logging out. Good bye, " + nameInputGiven, windowWidth/2, windowHeight/2);
   text(".   .   .", windowWidth/2, windowHeight/2+50);
   if (!welcomeAndLogoutMusic.isPlaying()) {
-    clear();
     programState = "login";
   }
 }
