@@ -124,13 +124,12 @@ function mousePressed() {
     // Login conditionals.
     if (proceedButton.isClicked()) {
       nameInputGiven = userName.value();
-      nameInputLength = nameInputGiven.length;
+      nameInputLength = userName.value().length;
       passInputGiven = userLoginInput.value();
       if (passInputGiven === password && (nameInputGiven !== "" && nameInputGiven !== " "
       && nameInputGiven !== "  " && nameInputGiven !== "   " && nameInputGiven !== "    "
       && nameInputGiven !== "     " && nameInputGiven !== "      "
-      && nameInputGiven !== "       " && nameInputGiven !== "        "
-      && nameInputGiven !== "         " && nameInputGiven !== "          ")) {
+      && nameInputGiven !== "       " && nameInputGiven !== "        ") && nameInputLength <= 8) {
         userName.remove();
         userLoginInput.remove();
         programState = "desktop welcome";
