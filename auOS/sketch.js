@@ -1,8 +1,10 @@
-//---------------------
-// auOS
-// CS30 Major Project
+//-----------------------------------
+// auOS (Operating System Simulation)
 // William Ahiahonu
-//---------------------
+// CS30 Major Project
+// Mr. D. Schellenberg
+// June 13, 2018
+//-----------------------------------
 
 // Global variables set to be used later in the code.
 let fadeAnimation;
@@ -15,9 +17,10 @@ let osGiphy, bootMusic, errorSound, welcomeAndLogoutMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
   welcomeAndLogoutMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
-let auosDesktopLogo, logoutPic, settingsPic;
+let logoutPic, settingsPic;
 let settingsButton, powerOffButton, logoutButton;
-
+// #############################################################################
+// Assests preloaded.
 function preload() {
   // All assets.
   powerOnImage = loadImage("assets/poweron.png");
@@ -29,10 +32,10 @@ function preload() {
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
   errorSound = loadSound("music/errorsound.mp3"), welcomeAndLogoutMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
-  auosDesktopLogo = loadImage("assets/auosdesktoplogo.png"), logoutPic = loadImage("assets/logoutpic.png");
-  settingsPic = loadImage("assets/settingspic.png");
+  logoutPic = loadImage("assets/logoutpic.png"), settingsPic = loadImage("assets/settingspic.png");
 }
-
+// #############################################################################
+// Setup.
 function setup() {
   createCanvas(windowWidth+1000, windowHeight+1000);
   fadeAnimation = createGraphics(windowWidth, windowHeight);
@@ -48,7 +51,8 @@ function setup() {
   errorSound.setVolume(0.5);
   welcomeAndLogoutMusic.setVolume(1.0);
 }
-
+// #############################################################################
+// Program display.
 function draw() {
   noStroke();
   // OS functionality states.
@@ -95,6 +99,9 @@ function draw() {
       else if (programState === "logout2") {
         logout();
       }
+      else if (programState === "settings") {
+        settings();
+      }
     }
     else {
       clear();
@@ -107,7 +114,10 @@ function draw() {
     }
   }
 }
+// #############################################################################
+// Functionality.
 
+// Mouse mechanism for functionality.
 function mousePressed() {
   // Power button mechanism.
   if (programState === "boot") {
@@ -153,6 +163,10 @@ function mousePressed() {
     }
     else if (logoutButton.isClicked()) {
       programState = "logout1";
+    }
+    else if (settingsButton.isClicked()) {
+      clear();
+      programState = "settings";
     }
   }
 }
@@ -248,12 +262,13 @@ function desktopWelcome() {
 function desktop() {
   // Desktop Design.
   background(128, 0, 32, 20);
-  image(auosDesktopLogo, 10, windowHeight/2+300, 130, 80);
   fill(0, 30);
   rect(0, 0, 150, windowHeight);
   textSize(100);
   fill(255, 30);
   text("auOS", windowWidth/2, windowHeight/2);
+  textSize(30);
+  text("version 0.0.1", windowWidth/2, windowHeight/2+70);
 
   // User box.
   push();
@@ -390,9 +405,16 @@ function logout() {
     programState = "login";
   }
 }
+// #############################################################################
+// Applications.
 
+function settings() {
+  background(102, 0, 0, 20);
+}
+// #############################################################################
+// Keyboard mechanism for functionality.
 function keyPressed() {
-  // Temporary for testing.
+  // Full screen if needed.
   if (key === "f" || key === "F") {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
@@ -421,6 +443,8 @@ function keyPressed() {
     }
   }
 }
+// #############################################################################
+// Classes.
 
 // Timer for timing events at the beginning and during the program.
 class Timer {
