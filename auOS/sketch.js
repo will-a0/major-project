@@ -405,12 +405,7 @@ function logout() {
     programState = "login";
   }
 }
-// #############################################################################
-// Applications.
 
-function settings() {
-  background(102, 0, 0, 20);
-}
 // #############################################################################
 // Keyboard mechanism for functionality.
 function keyPressed() {
