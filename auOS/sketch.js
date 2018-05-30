@@ -17,8 +17,11 @@ let osGiphy, bootMusic, errorSound, welcomeAndLogoutMusic;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
   welcomeAndLogoutMusicPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName;
-let logoutPic, settingsPic;
-let settingsButton, powerOffButton, logoutButton;
+// Button picture variables.
+let logoutPic, settingsPic, musicPic, cityPic, stickmanButtonPic, paintPic, closeWindowPic;
+// Button variables.
+let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButton, stickmanGameButton, paintAppButton,
+  closeWindowButton;
 // #############################################################################
 // Assests preloaded.
 function preload() {
@@ -33,6 +36,9 @@ function preload() {
   errorSound = loadSound("music/errorsound.mp3"), welcomeAndLogoutMusic = loadSound("music/welcometodesktop.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
   logoutPic = loadImage("assets/logoutpic.png"), settingsPic = loadImage("assets/settingspic.png");
+  musicPic = loadImage("assets/musicpic.png"), cityPic = loadImage("assets/citypic.png");
+  stickmanButtonPic = loadImage("assets/stickmanbuttonpic.png"), paintPic = loadImage("assets/paintpic.png");
+  closeWindowPic = loadImage("assets/closewindowpic.png");
 }
 // #############################################################################
 // Setup.
@@ -44,8 +50,9 @@ function setup() {
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
+  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 55, 60, 86, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "boot";
+  programState = "login";
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -110,7 +117,7 @@ function draw() {
       textSize(30);
       textFont("verdana");
       textAlign(CENTER, CENTER);
-      text("auOS runs in fullscreen only.", windowWidth/2, windowHeight/2);
+      text("auOS runs in fullscreen only. 'F' to fullscreen.", windowWidth/2, windowHeight/2);
     }
   }
 }
@@ -168,6 +175,10 @@ function mousePressed() {
       clear();
       programState = "settings";
     }
+  }
+  else if (programState !== "desktop" && closeWindowButton.isClicked()) {
+    clear();
+    programState = "desktop";
   }
 }
 
@@ -228,13 +239,13 @@ function login() {
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
   // Username.
-  userName = createInput("","text").size(300);
+  userName = createInput("Ahiahonu","text").size(300);
   userName.position(windowWidth/2-150, windowHeight/2+20);
   userName.style("font-size", "30px");
 
   // Password.
   password = "auos10";
-  userLoginInput = createInput("","password").size(300);
+  userLoginInput = createInput("auos10","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -263,6 +274,7 @@ function desktop() {
   // Desktop Design.
   background(128, 0, 32, 20);
   fill(0, 30);
+  // Side Dock.
   rect(0, 0, 150, windowHeight);
   textSize(100);
   fill(255, 30);
@@ -318,6 +330,11 @@ function desktop() {
   settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
   powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
   logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  // Side Dock Buttons.
+  musicAppButton = new Button(24, windowHeight/2-230, 100, 100, 51, 0, 25, 102, 0, 51);
+  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, 51, 0, 25, 102, 0, 51);
+  stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, 51, 0, 25, 102, 0, 51);
+  paintAppButton = new Button(24, windowHeight/2+130, 100, 100, 51, 0, 25, 102, 0, 51);
   // Settings button display.
   settingsButton.displayer();
   image(settingsPic, windowWidth-248, windowHeight/2+298, 60, 60);
@@ -327,6 +344,19 @@ function desktop() {
   // Logout button display.
   logoutButton.displayer();
   image(logoutPic, windowWidth-135, windowHeight/2+310, 35, 35);
+  // Side Dock Button Display.
+  // Music app button display.
+  musicAppButton.displayer();
+  image(musicPic, 24, windowHeight/2-230, 100, 100);
+  // City scene button display.
+  citySceneButton.displayer();
+  image(cityPic, 24, windowHeight/2-110, 100, 100);
+  // Stickman game button display.
+  stickmanGameButton.displayer();
+  image(stickmanButtonPic, 24, windowHeight/2+10, 100, 100);
+  // Paint app button display.
+  paintAppButton.displayer();
+  image(paintPic, 24, windowHeight/2+130, 100, 100);
 }
 
 function shutdownConditionals() {
