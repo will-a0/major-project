@@ -22,6 +22,8 @@ let logoutPic, settingsPic, musicPic, cityPic, stickmanButtonPic, paintPic, clos
 // Button variables.
 let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButton, stickmanGameButton, paintAppButton,
   closeWindowButton;
+// Wallpaper colour variables.
+let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB;
 // #############################################################################
 // Assests preloaded.
 function preload() {
@@ -57,6 +59,9 @@ function setup() {
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
   welcomeAndLogoutMusic.setVolume(1.0);
+  // Wallpaper variables.
+  backgroundR = 128, backgroundG = 0, backgroundB = 32;
+  buttonR = 51, buttonG = 0, buttonB = 25;
 }
 // #############################################################################
 // Program display.
@@ -272,7 +277,7 @@ function desktopWelcome() {
 
 function desktop() {
   // Desktop Design.
-  background(128, 0, 32, 20);
+  background(backgroundR, backgroundG, backgroundB, 20);
   fill(0, 30);
   // Side Dock.
   rect(0, 0, 150, windowHeight);
@@ -327,14 +332,14 @@ function desktop() {
   // Clock display.
   text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2+265);
   // Control Panel.
-  settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
-  powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
-  logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 51, 0, 25, 102, 0, 51);
+  settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
+  powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
+  logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
   // Side Dock Buttons.
-  musicAppButton = new Button(24, windowHeight/2-230, 100, 100, 51, 0, 25, 102, 0, 51);
-  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, 51, 0, 25, 102, 0, 51);
-  stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, 51, 0, 25, 102, 0, 51);
-  paintAppButton = new Button(24, windowHeight/2+130, 100, 100, 51, 0, 25, 102, 0, 51);
+  musicAppButton = new Button(24, windowHeight/2-230, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
+  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
+  stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
+  paintAppButton = new Button(24, windowHeight/2+130, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
   // Settings button display.
   settingsButton.displayer();
   image(settingsPic, windowWidth-248, windowHeight/2+298, 60, 60);

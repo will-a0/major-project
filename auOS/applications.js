@@ -23,4 +23,9 @@ function settings() {
 
   // Wallpaper Colour Options.
   //128, 0, 32 - Default.
+  // - Buttons - 51, 0, 25.
+  //0, 54, 142 - 2nd option.
+  // - Buttons - 0, 21, 56.
+  //188, 103, 0 - 3rd option.
+  // - Buttons - 71, 39, 0.
 }
