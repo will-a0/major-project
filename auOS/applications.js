@@ -20,4 +20,7 @@ function settings() {
   rect(windowWidth/2+410, windowHeight/2+50, 400, 650);
   pop();
   // Content.
+
+  // Wallpaper Colour Options.
+  //128, 0, 32 - Default.
 }
