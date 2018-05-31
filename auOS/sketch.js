@@ -127,6 +127,17 @@ function draw() {
       text("auOS runs in fullscreen only. 'F' to fullscreen.", windowWidth/2, windowHeight/2);
     }
   }
+  // Program automatically reloads as a way to shut down to be started again.
+  if (programState === "shutdown2" && !bootMusic.isPlaying()) {
+    if (fullscreen()) {
+      let fullScreen = fullscreen();
+      fullscreen(!fullScreen);
+      window.location.reload(true);
+    }
+    else {
+      window.location.reload(true);
+    }
+  }
 }
 // #############################################################################
 // Functionality.
@@ -398,15 +409,6 @@ function shutdown() {
   textSize(20);
   text("_-|-_", windowWidth/2, windowHeight/2+300);
   text("S H U T T I N G  D O W N . . .", windowWidth/2+10, windowHeight/2+350);
-  if (!bootMusic.isPlaying()) {
-    fill(0);
-    rect(0, 0, windowWidth, windowHeight);
-    fill(255);
-    textSize(30);
-    textFont("verdana");
-    textAlign(CENTER, CENTER);
-    text("Reload to power on auOS.", windowWidth/2, windowHeight/2);
-  }
 }
 
 function logoutConditionals() {
