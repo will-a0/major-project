@@ -7,17 +7,17 @@ The topic chosen to delve into for my major project is to create a simple, sleek
 
 Must Have:
 
-- Opening screen, welcoming user (with music)
-- Functional password bar that takes user to desktop
-- Some game and interactive scene applications (potentially use games made prior in the class and make them game applications in the operating system)
+- Opening screen, welcoming user (with music).
+- Functional password bar that takes user to desktop.
+- Simple settings app.
+- Incorporate already made projects as applications.
 - Button to “shut down” program
-- Program runs in browser as an illusion of an operating system
+- Program runs in browser as an illusion of an operating system.
 
 Nice to Have:
 
 - Fading animations for aesthetic purposes (not just front screen)
 - Music application (with nice, olden day song playlists)
-- Simple settings application
 - Button to “Log out” and not necessarily shut down all the time
 - Drag and drop functionality
 - Application for notes (dumbed down version of Microsoft word- will take more of the form of, for example, a MacBook, “Notes” app)
@@ -31,13 +31,13 @@ Timeline:
 
 May 12th-13th - Read about compiler’s and how achievable it is to make one. Also begin working on opening screen.
 
-May 14th-17th - Complete opening screen; begin creating password bar and settings app (including shut down functionality, drag and drop and so on).
+May 14th-17th - Complete opening screen; begin creating login screen and desktop design.
 
-May 18th-26th - Complete settings app, incorporate games already made as applications and possibly make one from scratch. Make music application (should not take that long for music application since music already exists and just called).
+May 18th-26th - Continue working on desktop design.
 
-27th-2nd - Finishing up game applications and music application and work on notes application.
+27th-2nd - Work on settings app. Incorporate already made projects as applications. Make music application.
 
-3rd-9th - Finish notes application and other things not completed.
+3rd-9th - Work on settings app. Incorporate already made projects as applications. Make music application.
 
 10th-13th - Fix up any hiccups.
 
