@@ -23,7 +23,7 @@ let logoutPic, settingsPic, musicPic, cityPic, stickmanButtonPic, paintPic, clos
 let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButton, stickmanGameButton, paintAppButton,
   closeWindowButton;
 // Wallpaper colour variables.
-let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB;
+let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, backgroundPic1, backgroundPic2, backgroundPic3;
 // #############################################################################
 // Assests preloaded.
 function preload() {
@@ -41,6 +41,8 @@ function preload() {
   musicPic = loadImage("assets/musicpic.png"), cityPic = loadImage("assets/citypic.png");
   stickmanButtonPic = loadImage("assets/stickmanbuttonpic.png"), paintPic = loadImage("assets/paintpic.png");
   closeWindowPic = loadImage("assets/closewindowpic.png");
+  backgroundPic1 = loadImage("assets/wallpaper1.png"), backgroundPic2 = loadImage("assets/wallpaper2.png");
+  backgroundPic3 = loadImage("assets/wallpaper3.png");
 }
 // #############################################################################
 // Setup.
@@ -52,9 +54,8 @@ function setup() {
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
-  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 55, 60, 86, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "login";
+  programState = "boot";
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -244,13 +245,13 @@ function login() {
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
   // Username.
-  userName = createInput("Ahiahonu","text").size(300);
+  userName = createInput("","text").size(300);
   userName.position(windowWidth/2-150, windowHeight/2+20);
   userName.style("font-size", "30px");
 
   // Password.
   password = "auos10";
-  userLoginInput = createInput("auos10","password").size(300);
+  userLoginInput = createInput("","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -448,6 +449,21 @@ function keyPressed() {
   if (key === "f" || key === "F") {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
+  }
+  // Settings - Wallpaper conditionals.
+  if (programState === "settings") {
+    if (key === "a" || key === "A") {
+      backgroundR = 128, backgroundG = 0, backgroundB = 32;
+      buttonR = 51, buttonG = 0, buttonB = 25;
+    }
+    else if (key === "b" || key === "B") {
+      backgroundR = 0, backgroundG = 54, backgroundB = 142;
+      buttonR = 0, buttonG = 21, buttonB = 56;
+    }
+    else if (key === "c" || key === "C") {
+      backgroundR = 188, backgroundG = 103, backgroundB = 0;
+      buttonR = 71, buttonG = 39, buttonB = 0;
+    }
   }
   // Shut down.
   if (programState === "shutdown1" && powerSwitch === "on") {
