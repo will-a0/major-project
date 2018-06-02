@@ -21,24 +21,27 @@ function settings() {
   rect(windowWidth/2-410, windowHeight/2+50, 400, 650);
   // Column one title.
   fill(255);
+  text("General", windowWidth/2-410, windowHeight/2-310);
   // Column two.
   fill(0, 30);
   rect(windowWidth/2, windowHeight/2+50, 400, 650);
-  // Column two title.
+  // Column two and three title.
   fill(255);
-  text("Wallpapers (Press Key A, B, or C)", windowWidth/2, windowHeight/2-310);
+  text("Wallpapers (Press Key A, B, C, D, E or G)", windowWidth/2+200, windowHeight/2-310);
   // Column three.
   fill(0, 30);
   rect(windowWidth/2+410, windowHeight/2+50, 400, 650);
-  // Colomn three title.
-  fill(255);
   pop();
   // Content.
-  // Middle column - wallpaper images.
+  // 1st column - general - brightness and sound.
+
+  // 2nd and 3rd columns - wallpaper images.
   push();
   fill(255);
   textSize(30);
   imageMode(CENTER);
+  // Wallpaper check.
+  image(wallpaperCheck, checkMarkPositionX, checkMarkPositionY, 80, 80);
   // Option one display.
   image(backgroundPic1, windowWidth/2-60, windowHeight/2-150, 260, 180);
   // Option one key display.
@@ -54,13 +57,20 @@ function settings() {
   // Option three key display.
   text("Option", windowWidth/2+135, windowHeight/2+220);
   text("C", windowWidth/2+135, windowHeight/2+270);
+  // Option four display.
+  image(backgroundPic4, windowWidth/2+350, windowHeight/2-150, 260, 180);
+  // Option four key display.
+  text("Option", windowWidth/2+545, windowHeight/2-180);
+  text("D", windowWidth/2+545, windowHeight/2-130);
+  // Option five display.
+  image(backgroundPic5, windowWidth/2+350, windowHeight/2+50, 260, 180);
+  // Option five key display.
+  text("Option", windowWidth/2+545, windowHeight/2+20);
+  text("E", windowWidth/2+545, windowHeight/2+70);
+  // Option six display.
+  image(backgroundPic6, windowWidth/2+350, windowHeight/2+250, 260, 180);
+  // Option six key display.
+  text("Option", windowWidth/2+545, windowHeight/2+220);
+  text("G", windowWidth/2+545, windowHeight/2+270);
   pop();
-
-  // Wallpaper Colour Options.
-  //128, 0, 32 - Default.
-  // - Buttons - 51, 0, 25.
-  //0, 54, 142 - 2nd option.
-  // - Buttons - 0, 21, 56.
-  //188, 103, 0 - 3rd option.
-  // - Buttons - 71, 39, 0.
 }
