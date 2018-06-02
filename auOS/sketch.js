@@ -59,7 +59,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 55, 60, 86, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "login";
+  programState = "boot";
   bootMusic.setVolume(1.0);
   loginMusic.setVolume(0.5);
   errorSound.setVolume(0.5);
@@ -71,7 +71,7 @@ function setup() {
   checkMarkPositionX = -10;
   checkMarkPositionY = 0;
   // Name place holder.
-  namePlaceHolder = "User";
+  namePlaceHolder = "";
   // Password value.
   password = "auos10";
 }
@@ -274,7 +274,7 @@ function login() {
   userName.style("font-size", "30px");
 
   // Password.
-  userLoginInput = createInput("auos10","password").size(300);
+  userLoginInput = createInput("","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -483,18 +483,27 @@ function keyPressed() {
     else if (key === "c" || key === "C") {
       backgroundR = 188, backgroundG = 103, backgroundB = 0;
       buttonR = 71, buttonG = 39, buttonB = 0;
+      // Change position of check mark.
+      checkMarkPositionX = windowWidth/2+135;
+      checkMarkPositionY = windowHeight/2+320;
     }
     else if (key === "d" || key === "D") {
       backgroundR = 118, backgroundG = 17, backgroundB = 219;
       buttonR = 44, buttonG = 1, buttonB = 89;
+      checkMarkPositionX = windowWidth/2+545;
+      checkMarkPositionY = windowHeight/2-80;
     }
     else if (key === "e" || key === "E") {
       backgroundR = 0, backgroundG = 88, backgroundB = 132;
       buttonR = 0, buttonG = 35, buttonB = 53;
+      checkMarkPositionX = windowWidth/2+545;
+      checkMarkPositionY = windowHeight/2+120;
     }
     else if (key === "g" || key === "G") {
       backgroundR = 160, backgroundG = 157, backgroundB = 0;
       buttonR = 62, buttonG = 61, buttonB = 0;
+      checkMarkPositionX = windowWidth/2+545;
+      checkMarkPositionY = windowHeight/2+320;
     }
   }
   // Shut down.

@@ -34,7 +34,7 @@ function settings() {
   pop();
   // Content.
   // 1st column - general - brightness and sound.
-
+  
   // 2nd and 3rd columns - wallpaper images.
   push();
   fill(255);
