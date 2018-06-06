@@ -28,7 +28,7 @@ let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, background
 // Brightness setting variables.
 
 // Volume setting variable.
-let volumeLevel = 0.5, tickMarkXPosition;
+let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0.5, tickMark2XPosition;
 
 // #############################################################################
 // Assests preloaded.
@@ -57,6 +57,9 @@ function preload() {
 // Setup.
 function setup() {
   createCanvas(windowWidth+1000, windowHeight+1000);
+  // // Brightness mechanism.
+  // fill(0, brightnessLevel);
+  // rect(windowWidth+1000, windowHeight+1000);
   fadeAnimation = createGraphics(windowWidth, windowHeight);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
@@ -84,6 +87,8 @@ function setup() {
 
   // Volume tick mark.
   tickMarkXPosition = windowWidth/2-450;
+  // Brightness tick mark.
+  tickMark2XPosition = windowWidth/2-450;
 }
 // #############################################################################
 // Program display.
@@ -553,6 +558,18 @@ function keyPressed() {
           volumeSoundPlayed = true;
         }
         volumeSoundPlayed = false;
+      }
+    }
+    else if (keyCode === 51) {
+      if (brightnessLevel > 0) {
+        brightnessLevel -= 0.095;
+        tickMark2XPosition -= 20;
+      }
+    }
+    else if (keyCode === 52) {
+      if (brightnessLevel < 1.5) {
+        brightnessLevel += 0.095;
+        tickMark2XPosition += 20;
       }
     }
   }

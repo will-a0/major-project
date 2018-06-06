@@ -47,6 +47,20 @@ function settings() {
   fill(255);
   rect(tickMarkXPosition, windowHeight/2-75, 20, 20);
   pop();
+  // Brightness section.
+  push();
+  fill(255);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  text("Brightness", windowWidth/2-410, windowHeight/2+50);
+  rectMode(CENTER);
+  rect(windowWidth/2-410, windowHeight/2+150, 340, 15);
+  fill(255, 188, 0);
+  rect(windowWidth/2-230, windowHeight/2+150, 20, 15);
+  // 2nd Tick mark.
+  fill(255);
+  rect(tickMark2XPosition, windowHeight/2+125, 20, 20);
+  pop();
   // 2nd and 3rd columns - wallpaper images.
   push();
   fill(255);
