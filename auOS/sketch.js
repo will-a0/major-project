@@ -13,9 +13,9 @@ let programState, powerSwitch;
 let powerOnButton, proceedButton;
 let powerOnImage, powerOnPressedImage;
 let auOS1, auOS2, auOS3, auOS4, auOS5, auOS6, auOS7, auOS8, auOS9, auOS10;
-let osGiphy, bootMusic, errorSound, welcomeAndLogoutMusic;
+let osGiphy, bootMusic, errorSound, welcomeAndLogoutMusic, volumeCheckSound;
 let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = false,
-  welcomeAndLogoutMusicPlayed = false;
+  welcomeAndLogoutMusicPlayed = false, volumeSoundPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName, namePlaceHolder;
 // Button picture variables.
 let logoutPic, settingsPic, musicPic, cityPic, stickmanButtonPic, paintPic, closeWindowPic;
@@ -25,6 +25,11 @@ let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButto
 // Wallpaper colour variables.
 let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, backgroundPic1, backgroundPic2, backgroundPic3,
   backgroundPic4, backgroundPic5, backgroundPic6, wallpaperCheck, checkMarkPositionX, checkMarkPositionY;
+// Brightness setting variables.
+
+// Volume setting variable.
+let volumeLevel = 0.5, tickMarkXPosition;
+
 // #############################################################################
 // Assests preloaded.
 function preload() {
@@ -37,6 +42,7 @@ function preload() {
   auOS9 = loadImage("assets/auOS-9.png"), auOS10 = loadImage("assets/auOS-10.png");
   bootMusic = loadSound("music/introsong.mp3"), loginMusic = loadSound("music/login.mp3");
   errorSound = loadSound("music/errorsound.mp3"), welcomeAndLogoutMusic = loadSound("music/welcometodesktop.mp3");
+  volumeCheckSound = loadSound("music/volumechecksound.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
   logoutPic = loadImage("assets/logoutpic.png"), settingsPic = loadImage("assets/settingspic.png");
   musicPic = loadImage("assets/musicpic.png"), cityPic = loadImage("assets/citypic.png");
@@ -57,13 +63,13 @@ function setup() {
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
-  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 55, 60, 86, 102, 0, 51);
+  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 84, 5, 5, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "boot";
-  bootMusic.setVolume(1.0);
-  loginMusic.setVolume(0.5);
-  errorSound.setVolume(0.5);
-  welcomeAndLogoutMusic.setVolume(1.0);
+  programState = "login";
+  bootMusic.setVolume(0.3);
+  loginMusic.setVolume(0.2);
+  errorSound.setVolume(0.2);
+  welcomeAndLogoutMusic.setVolume(0.4);
   // Wallpaper variables.
   backgroundR = 128, backgroundG = 0, backgroundB = 32;
   buttonR = 51, buttonG = 0, buttonB = 25;
@@ -71,9 +77,13 @@ function setup() {
   checkMarkPositionX = -10;
   checkMarkPositionY = 0;
   // Name place holder.
-  namePlaceHolder = "";
+  namePlaceHolder = "User";
   // Password value.
   password = "auos10";
+  // Music app song volume levels.
+
+  // Volume tick mark.
+  tickMarkXPosition = windowWidth/2-450;
 }
 // #############################################################################
 // Program display.
@@ -125,6 +135,9 @@ function draw() {
       }
       else if (programState === "settings") {
         settings();
+      }
+      else if (programState === "music app") {
+        musicApp();
       }
     }
     else {
@@ -205,6 +218,10 @@ function mousePressed() {
       clear();
       programState = "settings";
     }
+    else if (musicAppButton.isClicked()) {
+      clear();
+      programState = "music app";
+    }
   }
   else if (programState !== "desktop" && closeWindowButton.isClicked()) {
     clear();
@@ -247,7 +264,7 @@ function login() {
   textAlign(CENTER, CENTER);
   textFont("verdana");
   fill(0);
-  text("ENTER USERNAME", windowWidth/2-81, windowHeight/2+5);
+  text("ENTER USERNAME (8 Chars. Max)", windowWidth/2-23, windowHeight/2+5);
   text("ENTER PASSWORD (auos10)", windowWidth/2-43, windowHeight/2+85);
   welcomeAndLogoutMusicPlayed = false;
 
@@ -274,7 +291,7 @@ function login() {
   userName.style("font-size", "30px");
 
   // Password.
-  userLoginInput = createInput("","password").size(300);
+  userLoginInput = createInput("auos10","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -464,8 +481,8 @@ function keyPressed() {
     let fullScreen = fullscreen();
     fullscreen(!fullScreen);
   }
-  // Settings - Wallpaper conditionals.
   if (programState === "settings") {
+    // Settings - Wallpaper conditionals.
     if (key === "a" || key === "A") {
       backgroundR = 128, backgroundG = 0, backgroundB = 32;
       buttonR = 51, buttonG = 0, buttonB = 25;
@@ -504,6 +521,39 @@ function keyPressed() {
       buttonR = 62, buttonG = 61, buttonB = 0;
       checkMarkPositionX = windowWidth/2+545;
       checkMarkPositionY = windowHeight/2+320;
+    }
+  }
+  if (programState === "settings" || programState === "music app") {
+    // Settings - Sound and brightness conditionals.
+    if (keyCode === 49) {
+      if (volumeLevel > 0) {
+        volumeLevel -= 0.095;
+        tickMarkXPosition -= 20;
+      }
+      // Sounds AFTER login.
+      if (programState !== "music app") {
+        volumeCheckSound.setVolume(volumeLevel);
+        if (volumeSoundPlayed === false) {
+          volumeCheckSound.play();
+          volumeSoundPlayed = true;
+        }
+        volumeSoundPlayed = false;
+      }
+    }
+    else if (keyCode === 50) {
+      if (volumeLevel < 1.5) {
+        volumeLevel += 0.095;
+        tickMarkXPosition += 20;
+      }
+      // Sounds AFTER login.
+      if (programState !== "music app") {
+        volumeCheckSound.setVolume(volumeLevel);
+        if (volumeSoundPlayed === false) {
+          volumeCheckSound.play();
+          volumeSoundPlayed = true;
+        }
+        volumeSoundPlayed = false;
+      }
     }
   }
   // Shut down.

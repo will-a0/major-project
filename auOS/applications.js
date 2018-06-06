@@ -4,7 +4,6 @@
 function settings() {
   // Window setup and design.
   background(55, 60, 86, 20);
-  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 55, 60, 86, 102, 0, 51);
   closeWindowButton.displayer();
   image(closeWindowPic, windowWidth-73, -5, 80, 80);
   fill(255);
@@ -33,8 +32,21 @@ function settings() {
   rect(windowWidth/2+410, windowHeight/2+50, 400, 650);
   pop();
   // Content.
-  // 1st column - general - brightness and sound.
-  
+  // 1st column - general - sound and brightness.
+  // Sound section.
+  push();
+  fill(255);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  text("Volume", windowWidth/2-410, windowHeight/2-150);
+  rectMode(CENTER);
+  rect(windowWidth/2-410, windowHeight/2-50, 340, 15);
+  fill(255, 188, 0);
+  rect(windowWidth/2-230, windowHeight/2-50, 20, 15);
+  // Tick mark.
+  fill(255);
+  rect(tickMarkXPosition, windowHeight/2-75, 20, 20);
+  pop();
   // 2nd and 3rd columns - wallpaper images.
   push();
   fill(255);
@@ -73,4 +85,15 @@ function settings() {
   text("Option", windowWidth/2+545, windowHeight/2+220);
   text("G", windowWidth/2+545, windowHeight/2+270);
   pop();
+}
+
+function musicApp() {
+  background(0, 30);
+  closeWindowButton.displayer();
+  image(closeWindowPic, windowWidth-73, -5, 80, 80);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textSize(40);
+  textFont("verdana");
+  text("Music", windowWidth-140, 30);
 }
