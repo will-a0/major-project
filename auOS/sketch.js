@@ -523,7 +523,7 @@ function keyPressed() {
       checkMarkPositionY = windowHeight/2+320;
     }
   }
-  if (programState === "settings" || programState === "music app") {
+  if (programState === "desktop" || programState === "settings" || programState === "music app") {
     // Settings - Sound and brightness conditionals.
     if (keyCode === 49) {
       if (volumeLevel > 0) {
