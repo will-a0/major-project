@@ -25,10 +25,8 @@ let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButto
 // Wallpaper colour variables.
 let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, backgroundPic1, backgroundPic2, backgroundPic3,
   backgroundPic4, backgroundPic5, backgroundPic6, wallpaperCheck, checkMarkPositionX, checkMarkPositionY;
-// Brightness setting variables.
-
-// Volume setting variable.
-let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0.5, tickMark2XPosition;
+// Volume and brightness setting variable.
+let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0, tickMark2XPosition;
 
 // #############################################################################
 // Assests preloaded.
@@ -57,16 +55,13 @@ function preload() {
 // Setup.
 function setup() {
   createCanvas(windowWidth+1000, windowHeight+1000);
-  // // Brightness mechanism.
-  // fill(0, brightnessLevel);
-  // rect(windowWidth+1000, windowHeight+1000);
   fadeAnimation = createGraphics(windowWidth, windowHeight);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
   loadingAlert = new Timer(7000);
-  powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0, 0, 0, 0);
-  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 84, 5, 5, 102, 0, 51);
+  powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
+  closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
   programState = "login";
   bootMusic.setVolume(0.3);
@@ -286,7 +281,7 @@ function login() {
   }
 
   // Proceed button.
-  proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255, 255, 255, 255, 255);
+  proceedButton = new Button(windowWidth/2-25, windowHeight/2+160, 50, 50, 255, 255, 255);
   proceedButton.displayer();
   image(proceed, windowWidth/2-25, windowHeight/2+160, 50, 50);
 
@@ -323,7 +318,7 @@ function desktopWelcome() {
 
 function desktop() {
   // Desktop Design.
-  background(backgroundR, backgroundG, backgroundB, 20);
+  background(backgroundR+brightnessLevel, backgroundG+brightnessLevel, backgroundB+brightnessLevel, 20);
   fill(0, 30);
   // Side Dock.
   rect(0, 0, 150, windowHeight);
@@ -378,14 +373,14 @@ function desktop() {
   // Clock display.
   text(clockH + ":" + clockM + ":" + clockS + " " + meridiem, windowWidth-170, windowHeight/2+265);
   // Control Panel.
-  settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
-  powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
-  logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, buttonR, buttonG, buttonB, 102, 0, 51);
+  settingsButton = new Button(windowWidth-240, windowHeight/2+305, 45, 45, 102, 0, 51);
+  powerOffButton = new Button(windowWidth-190, windowHeight/2+305, 45, 45, 102, 0, 51);
+  logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 102, 0, 51);
   // Side Dock Buttons.
-  musicAppButton = new Button(24, windowHeight/2-230, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
-  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
-  stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
-  paintAppButton = new Button(24, windowHeight/2+130, 100, 100, buttonR, buttonG, buttonB, 102, 0, 51);
+  musicAppButton = new Button(24, windowHeight/2-230, 100, 100, 102, 0, 51);
+  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, 102, 0, 51);
+  stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, 102, 0, 51);
+  paintAppButton = new Button(24, windowHeight/2+130, 100, 100, 102, 0, 51);
   // Settings button display.
   settingsButton.displayer();
   image(settingsPic, windowWidth-248, windowHeight/2+298, 60, 60);
@@ -561,14 +556,14 @@ function keyPressed() {
       }
     }
     else if (keyCode === 51) {
-      if (brightnessLevel > 0) {
-        brightnessLevel -= 0.095;
+      if (brightnessLevel > -120) {
+        brightnessLevel -= 20;
         tickMark2XPosition -= 20;
       }
     }
     else if (keyCode === 52) {
-      if (brightnessLevel < 1.5) {
-        brightnessLevel += 0.095;
+      if (brightnessLevel < 220) {
+        brightnessLevel += 20;
         tickMark2XPosition += 20;
       }
     }
@@ -626,22 +621,19 @@ class Timer {
 
 // Buttons for the program.
 class Button {
-  constructor(x, y, buttonWidth, buttonHeight, offFillR, offFillG, offFillB, onFillR, onFillG, onFillB) {
+  constructor(x, y, buttonWidth, buttonHeight, onFillR, onFillG, onFillB) {
     this.buttonWidth = buttonWidth;
     this.buttonHeight = buttonHeight;
     this.leftSide = x;
     this.topSide = y;
     this.rightSide = this.leftSide + this.buttonWidth;
     this.bottomSide = this.topSide + this.buttonHeight;
-    this.offFillR = offFillR;
-    this.offFillG = offFillG;
-    this.offFillB = offFillB;
     this.onFillR = onFillR;
     this.onFillG = onFillG;
     this.onFillB = onFillB;
   }
   displayer() {
-    fill(this.offFillR, this.offFillG, this.offFillB);
+    fill(0, 1);
     if (mouseX >= this.leftSide && mouseX <= this.rightSide && mouseY >= this.topSide && mouseY <= this.bottomSide) {
       fill(this.onFillR, this.onFillG, this.onFillB);
     }

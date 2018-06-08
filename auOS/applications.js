@@ -43,6 +43,9 @@ function settings() {
   rect(windowWidth/2-410, windowHeight/2-50, 340, 15);
   fill(255, 188, 0);
   rect(windowWidth/2-230, windowHeight/2-50, 20, 15);
+  // Default tick mark. - For default volume level.
+  fill(30, 144, 255);
+  rect(windowWidth/2-450, windowHeight/2-75, 20, 20);
   // Tick mark.
   fill(255);
   rect(tickMarkXPosition, windowHeight/2-75, 20, 20);
@@ -57,6 +60,9 @@ function settings() {
   rect(windowWidth/2-410, windowHeight/2+150, 340, 15);
   fill(255, 188, 0);
   rect(windowWidth/2-230, windowHeight/2+150, 20, 15);
+  // Default 2nd tick mark. - For default brightness level.
+  fill(30, 144, 255);
+  rect(windowWidth/2-450, windowHeight/2+125, 20, 20);
   // 2nd Tick mark.
   fill(255);
   rect(tickMark2XPosition, windowHeight/2+125, 20, 20);
