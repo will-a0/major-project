@@ -36,9 +36,9 @@ function settings() {
   // Sound section.
   push();
   fill(255);
-  textSize(30);
+  textSize(25);
   textAlign(CENTER, CENTER);
-  text("Volume", windowWidth/2-410, windowHeight/2-150);
+  text("Volume (Press Key 1 or 2)", windowWidth/2-410, windowHeight/2-150);
   rectMode(CENTER);
   rect(windowWidth/2-410, windowHeight/2-50, 340, 15);
   fill(255, 188, 0);
@@ -60,9 +60,9 @@ function settings() {
   // Brightness section.
   push();
   fill(255);
-  textSize(30);
+  textSize(25);
   textAlign(CENTER, CENTER);
-  text("Brightness", windowWidth/2-410, windowHeight/2+50);
+  text("Brightness (Press Key 3 or 4)", windowWidth/2-410, windowHeight/2+50);
   rectMode(CENTER);
   rect(windowWidth/2-410, windowHeight/2+150, 340, 15);
   fill(255, 188, 0);
@@ -130,4 +130,7 @@ function musicApp() {
   textSize(40);
   textFont("verdana");
   text("Music", windowWidth-140, 30);
+  song1Button = new Button(windowWidth/2, windowHeight/2, 90, 90, 102, 0, 51);
+  song1Button.displayer();
+  image(playButtonImage, windowWidth/2, windowHeight/2, 90, 90);
 }

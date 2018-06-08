@@ -27,6 +27,9 @@ let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, background
   backgroundPic4, backgroundPic5, backgroundPic6, wallpaperCheck, checkMarkPositionX, checkMarkPositionY;
 // Volume and brightness setting variable.
 let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0, tickMark2XPosition;
+// Music app song variables.
+let song1, song2, song3, song4, song5, song6, playButtonImage;
+let song1Button;
 
 // #############################################################################
 // Assests preloaded.
@@ -50,6 +53,10 @@ function preload() {
   backgroundPic3 = loadImage("assets/wallpaper3.png"), backgroundPic4 = loadImage("assets/wallpaper4.png");
   backgroundPic5 = loadImage("assets/wallpaper5.png"), backgroundPic6 = loadImage("assets/wallpaper6.png");
   wallpaperCheck = loadImage("assets/wallpapercheck.png");
+  song1 = loadSound("music/introduction.mp3"), song2 = loadSound("music/higherground.mp3");
+  song3 = loadSound("music/oohchild.mp3"), song4 = loadSound("music/september.mp3");
+  song5 = loadSound("music/ifeelgood.mp3"), song6 = loadSound("music/moveonup.mp3");
+  playButtonImage = loadImage("assets/playimage.png");
 }
 // #############################################################################
 // Setup.
@@ -79,7 +86,12 @@ function setup() {
   // Password value.
   password = "auos10";
   // Music app song volume levels.
-
+  song1.setVolume(volumeLevel);
+  song2.setVolume(volumeLevel);
+  song3.setVolume(volumeLevel);
+  song4.setVolume(volumeLevel);
+  song5.setVolume(volumeLevel);
+  song6.setVolume(volumeLevel);
   // Volume tick mark.
   tickMarkXPosition = windowWidth/2-450;
   // Brightness tick mark.
@@ -223,7 +235,12 @@ function mousePressed() {
       programState = "music app";
     }
   }
-  else if (programState !== "desktop" && closeWindowButton.isClicked()) {
+  else if (programState === "music app") {
+    if (song1Button.isClicked() && !song1.isPlaying()) {
+      song1.play();
+    }
+  }
+  if (programState !== "desktop" && closeWindowButton.isClicked()) {
     clear();
     programState = "desktop";
   }
@@ -529,9 +546,15 @@ function keyPressed() {
       if (volumeLevel > 0) {
         volumeLevel -= 0.095;
         tickMarkXPosition -= 20;
+        song1.setVolume(volumeLevel);
+        song2.setVolume(volumeLevel);
+        song3.setVolume(volumeLevel);
+        song4.setVolume(volumeLevel);
+        song5.setVolume(volumeLevel);
+        song6.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
-      if (programState !== "music app") {
+      if (programState !== "music app" && programState !== "desktop") {
         volumeCheckSound.setVolume(volumeLevel);
         if (volumeSoundPlayed === false) {
           volumeCheckSound.play();
@@ -544,9 +567,15 @@ function keyPressed() {
       if (volumeLevel < 1.5) {
         volumeLevel += 0.095;
         tickMarkXPosition += 20;
+        song1.setVolume(volumeLevel);
+        song2.setVolume(volumeLevel);
+        song3.setVolume(volumeLevel);
+        song4.setVolume(volumeLevel);
+        song5.setVolume(volumeLevel);
+        song6.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
-      if (programState !== "music app") {
+      if (programState !== "music app" && programState !== "desktop") {
         volumeCheckSound.setVolume(volumeLevel);
         if (volumeSoundPlayed === false) {
           volumeCheckSound.play();
@@ -565,6 +594,29 @@ function keyPressed() {
       if (brightnessLevel < 220) {
         brightnessLevel += 20;
         tickMark2XPosition += 20;
+      }
+    }
+  }
+  if (programState === "music app") {
+    // Stop all music from playing when key "s" is pressed.
+    if (key === "s" || key === "S") {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      else if (song5.isPlaying()) {
+        song5.stop();
+      }
+      else if (song6.isPlaying()) {
+        song6.stop();
       }
     }
   }
