@@ -130,7 +130,14 @@ function musicApp() {
   textSize(40);
   textFont("verdana");
   text("Music", windowWidth-140, 30);
-  song1Button = new Button(windowWidth/2, windowHeight/2, 90, 90, 102, 0, 51);
+  textSize(50);
+  text("Old Classics", windowWidth/2-400, windowHeight/2-300);
+  // Song one.
+  song1Button = new Button(windowWidth/2-550, windowHeight/2-240, 90, 90, 102, 0, 51);
   song1Button.displayer();
-  image(playButtonImage, windowWidth/2, windowHeight/2, 90, 90);
+  image(playButtonImage, windowWidth/2-550, windowHeight/2-240, 90, 90);
+  // Song two.
+  song2Button = new Button(windowWidth/2-550, windowHeight/2-130, 90, 90, 102, 0, 51);
+  song2Button.displayer();
+  image(playButtonImage, windowWidth/2-550, windowHeight/2-130, 90, 90);
 }

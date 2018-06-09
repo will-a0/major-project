@@ -70,7 +70,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "login";
+  programState = "music app";
   bootMusic.setVolume(0.3);
   loginMusic.setVolume(0.2);
   errorSound.setVolume(0.2);
