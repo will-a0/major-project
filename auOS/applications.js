@@ -131,7 +131,13 @@ function musicApp() {
   textFont("verdana");
   text("Music", windowWidth-140, 30);
   textSize(50);
+  // Title one.
   text("Old Classics", windowWidth/2-400, windowHeight/2-300);
+  // Title two.
+  text("Personal Creation", windowWidth/2-330, windowHeight/2+125);
+  // Song One Title.
+  textSize(26);
+  text("Introduction - By Chicago (1969)", windowWidth/2-400, windowHeight/2-240);
   // Song one.
   song1Button = new Button(windowWidth/2-550, windowHeight/2-240, 90, 90, 102, 0, 51);
   song1Button.displayer();
@@ -140,4 +146,12 @@ function musicApp() {
   song2Button = new Button(windowWidth/2-550, windowHeight/2-130, 90, 90, 102, 0, 51);
   song2Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2-130, 90, 90);
+  // Song three.
+  song3Button = new Button(windowWidth/2-550, windowHeight/2-20, 90, 90, 102, 0, 51);
+  song3Button.displayer();
+  image(playButtonImage, windowWidth/2-550, windowHeight/2-20, 90, 90);
+  // Song four.
+  song4Button = new Button(windowWidth/2-550, windowHeight/2+185, 90, 90, 102, 0, 51);
+  song4Button.displayer();
+  image(playButtonImage, windowWidth/2-550, windowHeight/2+185, 90, 90);
 }

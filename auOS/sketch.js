@@ -28,8 +28,8 @@ let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, background
 // Volume and brightness setting variable.
 let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0, tickMark2XPosition;
 // Music app song variables.
-let song1, song2, song3, song4, song5, song6, playButtonImage;
-let song1Button;
+let song1, song2, song3, song4, playButtonImage;
+let song1Button, song2Button, song3Button, song4Button;
 
 // #############################################################################
 // Assests preloaded.
@@ -53,9 +53,8 @@ function preload() {
   backgroundPic3 = loadImage("assets/wallpaper3.png"), backgroundPic4 = loadImage("assets/wallpaper4.png");
   backgroundPic5 = loadImage("assets/wallpaper5.png"), backgroundPic6 = loadImage("assets/wallpaper6.png");
   wallpaperCheck = loadImage("assets/wallpapercheck.png");
-  song1 = loadSound("music/introduction.mp3"), song2 = loadSound("music/higherground.mp3");
-  song3 = loadSound("music/oohchild.mp3"), song4 = loadSound("music/september.mp3");
-  song5 = loadSound("music/ifeelgood.mp3"), song6 = loadSound("music/moveonup.mp3");
+  song1 = loadSound("music/introduction.mp3"), song2 = loadSound("music/september.mp3");
+  song3 = loadSound("music/oohchild.mp3"), song4 = loadSound("music/entryii.mp3");
   playButtonImage = loadImage("assets/playimage.png");
 }
 // #############################################################################
@@ -87,11 +86,9 @@ function setup() {
   password = "auos10";
   // Music app song volume levels.
   song1.setVolume(volumeLevel);
-  song2.setVolume(volumeLevel);
+  song2.setVolume(volumeLevel+0.5);
   song3.setVolume(volumeLevel);
-  song4.setVolume(volumeLevel);
-  song5.setVolume(volumeLevel);
-  song6.setVolume(volumeLevel);
+  song4.setVolume(volumeLevel+0.6);
   // Volume tick mark.
   tickMarkXPosition = windowWidth/2-450;
   // Brightness tick mark.
@@ -236,8 +233,57 @@ function mousePressed() {
     }
   }
   else if (programState === "music app") {
+    // Play song one.
     if (song1Button.isClicked() && !song1.isPlaying()) {
+      if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
       song1.play();
+    }
+    // Play song two.
+    if (song2Button.isClicked() && !song2.isPlaying()) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      song2.play();
+    }
+    // Play song three.
+    if (song3Button.isClicked() && !song3.isPlaying()) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      song3.play();
+    }
+    // Play song four.
+    if (song4Button.isClicked() && !song4.isPlaying()) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      song4.play();
     }
   }
   if (programState !== "desktop" && closeWindowButton.isClicked()) {
@@ -550,8 +596,6 @@ function keyPressed() {
         song2.setVolume(volumeLevel);
         song3.setVolume(volumeLevel);
         song4.setVolume(volumeLevel);
-        song5.setVolume(volumeLevel);
-        song6.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
       if (programState !== "music app" && programState !== "desktop") {
@@ -571,8 +615,6 @@ function keyPressed() {
         song2.setVolume(volumeLevel);
         song3.setVolume(volumeLevel);
         song4.setVolume(volumeLevel);
-        song5.setVolume(volumeLevel);
-        song6.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
       if (programState !== "music app" && programState !== "desktop") {
@@ -612,11 +654,19 @@ function keyPressed() {
       else if (song4.isPlaying()) {
         song4.stop();
       }
-      else if (song5.isPlaying()) {
-        song5.stop();
+    }
+    if (key === "p" || key === "P") {
+      if (song1.isPlaying()) {
+        song1.pause();
       }
-      else if (song6.isPlaying()) {
-        song6.stop();
+      else if (song2.isPlaying()) {
+        song2.pause();
+      }
+      else if (song3.isPlaying()) {
+        song3.pause();
+      }
+      else if (song4.isPlaying()) {
+        song4.pause();
       }
     }
   }
