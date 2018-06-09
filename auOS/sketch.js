@@ -3,11 +3,10 @@
 // William Ahiahonu
 // CS30 Major Project
 // Mr. D. Schellenberg
-// June 13, 2018
+// June 15, 2018
 //-----------------------------------
 
 // Global variables set to be used later in the code.
-let fadeAnimation;
 let systemBoot, startup, loadingAlert, bootMusicPlayed = false; // last variable in this row only used for shutdown.
 let programState, powerSwitch;
 let powerOnButton, proceedButton;
@@ -60,8 +59,8 @@ function preload() {
 // #############################################################################
 // Setup.
 function setup() {
-  createCanvas(windowWidth+1000, windowHeight+1000);
-  fadeAnimation = createGraphics(windowWidth, windowHeight);
+  // Canvas that fits the entire screen based on the screen size of the device.
+  createCanvas(screen.width, screen.height);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
