@@ -131,13 +131,28 @@ function musicApp() {
   textFont("verdana");
   text("Music", windowWidth-140, 30);
   textSize(50);
+  // Aestetic Add ons.
+  fill(102, 0, 51);
+  rect(0, windowHeight/2-340, windowWidth/2+100, 90);
+  rect(0, windowHeight/2+80, windowWidth/2+100, 90);
   // Title one.
+  fill(255);
   text("Old Classics", windowWidth/2-400, windowHeight/2-300);
   // Title two.
   text("Personal Creation", windowWidth/2-330, windowHeight/2+125);
-  // Song One Title.
+  // Song titles.
   textSize(26);
-  text("Introduction - By Chicago (1969)", windowWidth/2-400, windowHeight/2-240);
+  text("Introduction - By Chicago (1969)", windowWidth/2-230, windowHeight/2-195);
+  text("September - By Earth, Wind & Fire (1978)", windowWidth/2-170, windowHeight/2-85);
+  text("O-o-h Child - The Five Stairsteps (1970)", windowWidth/2-185, windowHeight/2+25);
+  text("Entry II - William Ahiahonu (2018)", windowWidth/2-220, windowHeight/2+230);
+  // Instructions.
+  textSize(23);
+  fill(102, 0, 51);
+  rect(0, windowHeight/2+275, windowWidth, 100);
+  fill(255);
+  text("Volume: key '1' - decrease, key '2' - increase", windowWidth/2, windowHeight/2+300);
+  text("Press play buttons to play, 'p' to pause, 's' to stop and reset", windowWidth/2, windowHeight/2+350);
   // Song one.
   song1Button = new Button(windowWidth/2-550, windowHeight/2-240, 90, 90, 102, 0, 51);
   song1Button.displayer();
