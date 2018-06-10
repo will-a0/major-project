@@ -17,9 +17,9 @@ let userLoginMusicPlayed = false, loginMusic, userLogin, errorSoundPlayed = fals
   welcomeAndLogoutMusicPlayed = false, volumeSoundPlayed = false;
 let userLoginInput, password, nameInputGiven, nameInputLength, passInputGiven, proceed, userName, namePlaceHolder;
 // Button picture variables.
-let logoutPic, settingsPic, musicPic, cityPic, stickmanButtonPic, paintPic, closeWindowPic;
+let logoutPic, settingsPic, musicPic, keyboardPic, stickmanButtonPic, paintPic, closeWindowPic;
 // Button variables.
-let settingsButton, powerOffButton, logoutButton, musicAppButton, citySceneButton, stickmanGameButton, paintAppButton,
+let settingsButton, powerOffButton, logoutButton, musicAppButton, keyBoardShortCutsButton, stickmanGameButton, paintAppButton,
   closeWindowButton;
 // Wallpaper colour variables.
 let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, backgroundPic1, backgroundPic2, backgroundPic3,
@@ -45,7 +45,7 @@ function preload() {
   volumeCheckSound = loadSound("music/volumechecksound.mp3");
   userLogin = loadImage("assets/userlogin.png"), proceed = loadImage("assets/proceed.png");
   logoutPic = loadImage("assets/logoutpic.png"), settingsPic = loadImage("assets/settingspic.png");
-  musicPic = loadImage("assets/musicpic.png"), cityPic = loadImage("assets/citypic.png");
+  musicPic = loadImage("assets/musicpic.png"), keyboardPic = loadImage("assets/keyboard.png");
   stickmanButtonPic = loadImage("assets/stickmanbuttonpic.png"), paintPic = loadImage("assets/paintpic.png");
   closeWindowPic = loadImage("assets/closewindowpic.png");
   backgroundPic1 = loadImage("assets/wallpaper1.png"), backgroundPic2 = loadImage("assets/wallpaper2.png");
@@ -442,7 +442,7 @@ function desktop() {
   logoutButton = new Button(windowWidth-140, windowHeight/2+305, 45, 45, 102, 0, 51);
   // Side Dock Buttons.
   musicAppButton = new Button(24, windowHeight/2-230, 100, 100, 102, 0, 51);
-  citySceneButton = new Button(24, windowHeight/2-110, 100, 100, 102, 0, 51);
+  keyBoardShortCutsButton = new Button(24, windowHeight/2-110, 100, 100, 102, 0, 51);
   stickmanGameButton = new Button(24, windowHeight/2+10, 100, 100, 102, 0, 51);
   paintAppButton = new Button(24, windowHeight/2+130, 100, 100, 102, 0, 51);
   // Settings button display.
@@ -455,18 +455,23 @@ function desktop() {
   logoutButton.displayer();
   image(logoutPic, windowWidth-135, windowHeight/2+310, 35, 35);
   // Side Dock Button Display.
+  textSize(20);
   // Music app button display.
   musicAppButton.displayer();
   image(musicPic, 24, windowHeight/2-230, 100, 100);
+  text("Music", 75, windowHeight/2-110);
   // City scene button display.
-  citySceneButton.displayer();
-  image(cityPic, 24, windowHeight/2-110, 100, 100);
+  keyBoardShortCutsButton.displayer();
+  image(keyboardPic, 24, windowHeight/2-110, 100, 100);
+  text("Shortcuts", 75, windowHeight/2+10);
   // Stickman game button display.
   stickmanGameButton.displayer();
   image(stickmanButtonPic, 24, windowHeight/2+10, 100, 100);
+  text("Game", 75, windowHeight/2+130);
   // Paint app button display.
   paintAppButton.displayer();
   image(paintPic, 24, windowHeight/2+130, 100, 100);
+  text("Paint", 75, windowHeight/2+250);
 }
 
 function shutdownConditionals() {

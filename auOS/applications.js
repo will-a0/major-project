@@ -198,3 +198,18 @@ function musicApp() {
   song4Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2+185, 80, 80);
 }
+
+function keyboardShortcuts() {
+  fill(0, 10);
+  rect(0, 0, windowWidth, windowHeight);
+  push();
+  fill(255);
+  rectMode(CENTER);
+  rect(windowWidth/2, windowHeight/2, 400, 200);
+  pop();
+  fill(0);
+  textSize(30);
+  textFont("verdana");
+  text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-40);
+  text("X - Close", windowWidth/2, windowHeight/2+40);
+}
