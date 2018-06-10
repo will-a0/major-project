@@ -205,11 +205,12 @@ function keyboardShortcuts() {
   push();
   fill(255);
   rectMode(CENTER);
-  rect(windowWidth/2, windowHeight/2, 400, 200);
+  rect(windowWidth/2, windowHeight/2, 800, 600);
   pop();
   fill(0);
   textSize(30);
   textFont("verdana");
-  text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-40);
-  text("X - Close", windowWidth/2, windowHeight/2+40);
+  text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-250);
+  //
+  text("X - Close", windowWidth/2, windowHeight/2+250);
 }

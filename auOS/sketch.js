@@ -149,6 +149,9 @@ function draw() {
       else if (programState === "music app") {
         musicApp();
       }
+      else if (programState === "keyboard shortcuts") {
+        keyboardShortcuts();
+      }
     }
     else {
       clear();
@@ -232,8 +235,11 @@ function mousePressed() {
       clear();
       programState = "music app";
     }
+    else if (keyBoardShortCutsButton.isClicked()) {
+      programState = "keyboard shortcuts";
+    }
   }
-  else if (programState === "music app") {
+  if (programState === "music app") {
     // Play song one.
     if (song1Button.isClicked() && !song1.isPlaying()) {
       if (song2.isPlaying()) {
@@ -765,6 +771,13 @@ function keyPressed() {
       else if (songChoice === 4) {
         song4.play();
       }
+    }
+  }
+  // Close keyboard shortcuts list.
+  if (programState === "keyboard shortcuts") {
+    if (key === "x" || key === "X") {
+      clear();
+      programState = "desktop";
     }
   }
   // Shut down.
