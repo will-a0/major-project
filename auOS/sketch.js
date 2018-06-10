@@ -68,7 +68,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "keyboard shortcuts";
+  programState = "boot";
   bootMusic.setVolume(0.3);
   loginMusic.setVolume(0.2);
   errorSound.setVolume(0.2);
@@ -252,6 +252,7 @@ function mousePressed() {
         song4.stop();
       }
       song1.play();
+      songChoice = 1;
     }
     // Play song two.
     if (song2Button.isClicked() && !song2.isPlaying()) {
@@ -265,6 +266,7 @@ function mousePressed() {
         song4.stop();
       }
       song2.play();
+      songChoice = 2;
     }
     // Play song three.
     if (song3Button.isClicked() && !song3.isPlaying()) {
@@ -278,6 +280,7 @@ function mousePressed() {
         song4.stop();
       }
       song3.play();
+      songChoice = 3;
     }
     // Play song four.
     if (song4Button.isClicked() && !song4.isPlaying()) {
@@ -291,6 +294,7 @@ function mousePressed() {
         song3.stop();
       }
       song4.play();
+      songChoice = 4;
     }
   }
   if (programState !== "desktop" && closeWindowButton.isClicked()) {
@@ -622,7 +626,8 @@ function keyPressed() {
       checkMarkPositionY = windowHeight/2+320;
     }
   }
-  if (programState === "desktop" || programState === "settings" || programState === "music app") {
+  if (programState === "desktop" || programState === "settings" || programState === "music app" ||
+  programState === "keyboard shortcuts" || programState === "paint app") {
     // Settings - Sound and brightness conditionals.
     if (keyCode === 49) {
       if (volumeLevel > 0) {
@@ -675,7 +680,8 @@ function keyPressed() {
       }
     }
   }
-  if (programState === "desktop" || programState === "paint app") {
+  if (programState === "desktop" || programState === "paint app" || programState === "settings" ||
+  programState === "keyboard shortcuts") {
     // Song choice keyboard short cut - avaliable only when not in music app (already button for this) or gaming apps.
     if (keyCode === 53) {
       if (song2.isPlaying()) {
@@ -726,7 +732,8 @@ function keyPressed() {
       songChoice = 4;
     }
   }
-  if (programState === "music app" || programState === "desktop" || programState === "paint app") {
+  if (programState === "music app" || programState === "desktop" || programState === "paint app" ||
+  programState === "settings" || programState === "keyboard shortcuts") {
     // Stop all music from playing when key "s" is pressed.
     if (key === "s" || key === "S") {
       if (song1.isPlaying()) {

@@ -145,32 +145,36 @@ function musicApp() {
   // Song one.
   fill(218, 165, 32);
   text("Introduction - Chicago (1969) - ", windowWidth/2-250, windowHeight/2-195);
-  // Song one duration.
   fill(255);
+  text("1", windowWidth/2-570, windowHeight/2-195);
+  // Song one duration.
   text("Duration: " + round(song1.duration()) + "s - ", windowWidth/2+80, windowHeight/2-195);
   // Song one current time.
   text("Current: " + round(song1.currentTime()) + "s", windowWidth/2+290, windowHeight/2-195);
   // Song two.
   fill(218, 165, 32);
   text("September - Earth, Wind & Fire (1978) - ", windowWidth/2-190, windowHeight/2-85);
-  // Song two duration.
   fill(255);
+  text("2", windowWidth/2-570, windowHeight/2-85);
+  // Song two duration.
   text("Duration: " + round(song2.duration()) + "s - ", windowWidth/2+200, windowHeight/2-85);
   // Song two current time.
   text("Current: " + round(song2.currentTime()) + "s", windowWidth/2+410, windowHeight/2-85);
   // Song three.
   fill(218, 165, 32);
   text("O-o-h Child - The Five Stairsteps (1970) - ", windowWidth/2-185, windowHeight/2+25);
-  // Song three duration.
   fill(255);
+  text("3", windowWidth/2-570, windowHeight/2+25);
+  // Song three duration.
   text("Duration: " + round(song3.duration()) + "s - ", windowWidth/2+215, windowHeight/2+25);
   // Song three current time.
   text("Current: " + round(song3.currentTime()) + "s", windowWidth/2+425, windowHeight/2+25);
   // Song four.
   fill(218, 165, 32);
   text("Entry II - William Ahiahonu (2018) - ", windowWidth/2-220, windowHeight/2+230);
-  // Song four duration.
   fill(255);
+  text("4", windowWidth/2-570, windowHeight/2+230);
+  // Song four duration.
   text("Duration: " + round(song4.duration()) + "s - ", windowWidth/2+145, windowHeight/2+230);
   // Song four current time.
   text("Current: " + round(song4.currentTime()) + "s", windowWidth/2+355, windowHeight/2+230);
@@ -180,7 +184,7 @@ function musicApp() {
   rect(0, windowHeight/2+300, windowWidth, 100);
   fill(255);
   text("Volume: key '1' - decrease, key '2' - increase", windowWidth/2, windowHeight/2+325);
-  text("Press play buttons to play (or 'p'), 'l' to pause, 's' to stop and reset", windowWidth/2, windowHeight/2+375);
+  text("Press play buttons to play (or 'p'), 'l (L)' to pause, 's' to stop and reset", windowWidth/2, windowHeight/2+375);
   // Song one.
   song1Button = new Button(windowWidth/2-550, windowHeight/2-240, 80, 80, 102, 0, 51);
   song1Button.displayer();
@@ -210,7 +214,7 @@ function keyboardShortcuts() {
   fill(0);
   textSize(30);
   textFont("verdana");
-  text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-250);
+  text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-257);
   textSize(25);
   // General section.
   rect(windowWidth/2-400, windowHeight/2-220, 800, 60);
@@ -221,8 +225,31 @@ function keyboardShortcuts() {
   text("Volume: Key '1' - Decrease | Key '2' - Increase", windowWidth/2, windowHeight/2-130);
   // Brightness shortcut.
   text("Brightness: Key '3' - Decrease | Key '4' - Increase", windowWidth/2, windowHeight/2-70);
-  // Music shortcuts.
-
-  textSize(30);
-  text("X - Close", windowWidth/2, windowHeight/2+250);
+  // Music section.
+  rect(windowWidth/2-400, windowHeight/2-40, 800, 60);
+  fill(255);
+  text("Music Shortcuts", windowWidth/2, windowHeight/2-10);
+  // Play, pause and stop shortcuts.
+  fill(0);
+  text("Key 'p' - Play | Key 'l (L)' - Pause | Key 's' - Stop", windowWidth/2, windowHeight/2+50);
+  // Other music shortcuts that are avaliable only out of the music app and game.
+  fill(240, 240, 240);
+  rect(windowWidth/2-400, windowHeight/2+80, 800, 60);
+  fill(0);
+  text("Only avaliable outside of the music app and game:", windowWidth/2, windowHeight/2+110);
+  textSize(22);
+  text("Key '5+p' - Song 1 | Key '6+p' - Song 2", windowWidth/2-165, windowHeight/2+177);
+  text("Key '7+p' - Song 3 | Key '8+p' - Song 4", windowWidth/2-165, windowHeight/2+217);
+  // Elaboration on how to use the combination above.
+  fill(220, 220, 220);
+  rect(windowWidth/2+85, windowHeight/2+150, 300, 100);
+  fill(0);
+  text("Press desired key first,", windowWidth/2+235, windowHeight/2+177);
+  text("then 'p' to play", windowWidth/2+235, windowHeight/2+217);
+  // Close the window.
+  textSize(20);
+  fill(220, 220, 220);
+  rect(windowWidth/2-393, windowHeight/2+261, 120, 30);
+  fill(0);
+  text("X - Close", windowWidth/2-335, windowHeight/2+275);
 }
