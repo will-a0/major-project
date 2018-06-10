@@ -28,7 +28,7 @@ let backgroundR, backgroundG, backgroundB, buttonR, buttonG, buttonB, background
 let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0, tickMark2XPosition;
 // Music app song variables.
 let song1, song2, song3, song4, playButtonImage;
-let song1Button, song2Button, song3Button, song4Button;
+let song1Button, song2Button, song3Button, song4Button, songChoice;
 
 // #############################################################################
 // Assests preloaded.
@@ -68,7 +68,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "music app";
+  programState = "login";
   bootMusic.setVolume(0.3);
   loginMusic.setVolume(0.2);
   errorSound.setVolume(0.2);
@@ -85,9 +85,11 @@ function setup() {
   password = "auos10";
   // Music app song volume levels.
   song1.setVolume(volumeLevel);
-  song2.setVolume(volumeLevel+0.5);
-  song3.setVolume(volumeLevel);
-  song4.setVolume(volumeLevel+0.6);
+  song2.setVolume(volumeLevel+0.7);
+  song3.setVolume(volumeLevel+0.3);
+  song4.setVolume(volumeLevel+0.7);
+  // Music app song choice set to 0 initially.
+  songChoice = 0;
   // Volume tick mark.
   tickMarkXPosition = windowWidth/2-450;
   // Brightness tick mark.
@@ -483,11 +485,23 @@ function shutdownConditionals() {
 }
 
 function shutdown() {
+  background(110, 0, 60, 10);
+  if (song1.isPlaying()) {
+    song1.stop();
+  }
+  if (song2.isPlaying()) {
+    song2.stop();
+  }
+  if (song3.isPlaying()) {
+    song3.stop();
+  }
+  if (song4.isPlaying()) {
+    song4.stop();
+  }
   if (bootMusicPlayed === false) {
     bootMusic.play();
     bootMusicPlayed = true;
   }
-  background(110, 0, 60, 10);
   // Shutting down.
   osGiphy.updateDisplay();
   push();
@@ -519,6 +533,18 @@ function logoutConditionals() {
 
 function logout() {
   background(0, 0, 28, 40);
+  if (song1.isPlaying()) {
+    song1.stop();
+  }
+  if (song2.isPlaying()) {
+    song2.stop();
+  }
+  if (song3.isPlaying()) {
+    song3.stop();
+  }
+  if (song4.isPlaying()) {
+    song4.stop();
+  }
   if (welcomeAndLogoutMusicPlayed === false) {
     welcomeAndLogoutMusic.play();
     welcomeAndLogoutMusicPlayed = true;
@@ -638,7 +664,58 @@ function keyPressed() {
       }
     }
   }
-  if (programState === "music app") {
+  if (programState === "desktop" || programState === "paint app") {
+    // Song choice keyboard short cut - avaliable only when not in music app (already button for this) or gaming apps.
+    if (keyCode === 53) {
+      if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      songChoice = 1;
+    }
+    if (keyCode === 54) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      songChoice = 2;
+    }
+    if (keyCode === 55) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song4.isPlaying()) {
+        song4.stop();
+      }
+      songChoice = 3;
+    }
+    if (keyCode === 56) {
+      if (song1.isPlaying()) {
+        song1.stop();
+      }
+      else if (song2.isPlaying()) {
+        song2.stop();
+      }
+      else if (song3.isPlaying()) {
+        song3.stop();
+      }
+      songChoice = 4;
+    }
+  }
+  if (programState === "music app" || programState === "desktop" || programState === "paint app") {
     // Stop all music from playing when key "s" is pressed.
     if (key === "s" || key === "S") {
       if (song1.isPlaying()) {
@@ -654,7 +731,8 @@ function keyPressed() {
         song4.stop();
       }
     }
-    if (key === "p" || key === "P") {
+    // Pause music.
+    if (key === "l" || key === "L") {
       if (song1.isPlaying()) {
         song1.pause();
       }
@@ -666,6 +744,21 @@ function keyPressed() {
       }
       else if (song4.isPlaying()) {
         song4.pause();
+      }
+    }
+    // Keyboard shortcut to play music.
+    if (key === "p" || key === "P") {
+      if (songChoice === 1) {
+        song1.play();
+      }
+      else if (songChoice === 2) {
+        song2.play();
+      }
+      else if (songChoice === 3) {
+        song3.play();
+      }
+      else if (songChoice === 4) {
+        song4.play();
       }
     }
   }
