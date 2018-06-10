@@ -211,6 +211,18 @@ function keyboardShortcuts() {
   textSize(30);
   textFont("verdana");
   text("Keyboard Shortcuts", windowWidth/2, windowHeight/2-250);
-  //
+  textSize(25);
+  // General section.
+  rect(windowWidth/2-400, windowHeight/2-220, 800, 60);
+  fill(255);
+  text("General Shortcuts", windowWidth/2, windowHeight/2-190);
+  // Volume shortcut.
+  fill(0);
+  text("Volume: Key '1' - Decrease | Key '2' - Increase", windowWidth/2, windowHeight/2-130);
+  // Brightness shortcut.
+  text("Brightness: Key '3' - Decrease | Key '4' - Increase", windowWidth/2, windowHeight/2-70);
+  // Music shortcuts.
+
+  textSize(30);
   text("X - Close", windowWidth/2, windowHeight/2+250);
 }
