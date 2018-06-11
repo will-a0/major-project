@@ -2,7 +2,13 @@
 // Stickman game.
 
 function gameIntro() {
-  background(0, 128, 255, 20);
+  background(25, 25, 112, 20);
+  fill(255);
+  textSize(80);
+  textFont("verdana");
+  text("Run", windowWidth/2, windowHeight/2-240);
+  textSize(40);
+  text("version 1.0.0", windowWidth/2, windowHeight/2-160);
 }
 function stickManGame() {
   // Stop all songs from the music app when in the game app
