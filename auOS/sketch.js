@@ -30,6 +30,14 @@ let volumeLevel = 0.5, tickMarkXPosition, brightnessLevel = 0, tickMark2XPositio
 let song1, song2, song3, song4, playButtonImage;
 let song1Button, song2Button, song3Button, song4Button, songChoice;
 
+// Stickman game global variables.
+let stickman, collisionDetector;
+let stickmanStandState, stickmanJumpState, stickmanRunState1, stickmanRunState2,
+  stickmanRunState3, stickmanRunState4;
+let obstacleX, obstacleSpeed, obstacleState, obstacleStateArray = [1, 2, 3, 4], lavaImage;
+let gameState, score, highScore;
+let gameMusic;
+
 // #############################################################################
 // Assests preloaded.
 function preload() {
@@ -55,6 +63,16 @@ function preload() {
   song1 = loadSound("music/introduction.mp3"), song2 = loadSound("music/september.mp3");
   song3 = loadSound("music/oohchild.mp3"), song4 = loadSound("music/entryii.mp3");
   playButtonImage = loadImage("assets/playimage.png");
+
+  // Stickman game assets.
+  stickmanStandState = loadImage("gameassets/stickman_stand.png");
+  stickmanJumpState = loadImage("gameassets/stickman_jump.png");
+  stickmanRunState1 = loadImage("gameassets/stickman_run1.png");
+  stickmanRunState2 = loadImage("gameassets/stickman_run2.png");
+  stickmanRunState3 = loadImage("gameassets/stickman_run3.png");
+  stickmanRunState4 = loadImage("gameassets/stickman_run4.png");
+  lavaImage = loadImage("gameassets/lavaimage.png");
+  gameMusic = loadSound("gameassets/hightops.mp3");
 }
 // #############################################################################
 // Setup.
@@ -68,7 +86,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "boot";
+  programState = "login";
   bootMusic.setVolume(0.3);
   loginMusic.setVolume(0.2);
   errorSound.setVolume(0.2);
@@ -94,6 +112,32 @@ function setup() {
   tickMarkXPosition = windowWidth/2-450;
   // Brightness tick mark.
   tickMark2XPosition = windowWidth/2-450;
+  // Stickman game setup tools.
+  // Game music volume setup.
+  gameMusic.setVolume(volumeLevel);
+  // Stickman display and behaviour class.
+  stickman = new StickmanCharacter(150);
+  // Collision Detection class, which includes the appearance and behaviour of the obstacles.
+  collisionDetector = new CollisionDetection(150);
+  // Obstacle movement and appearance changes - William.
+  obstacleX = windowWidth/2;
+  obstacleSpeed = 15;
+  obstacleState = 1;
+  // Controls for gameover screen and actual game.
+  gameState = 0;
+  // game and highscore control.
+  score = 0;
+  highScore = 0;
+  // Checking for a local storage value from the last time played, else
+  // the value is set beginning with the first game played.
+  if (!localStorage.getItem("highscore")) {
+    // Set the highscore.
+    setHighScore();
+  }
+  else {
+    // Retrieve the highscore if it already exists.
+    getHighScore();
+  }
 }
 // #############################################################################
 // Program display.
@@ -151,6 +195,19 @@ function draw() {
       }
       else if (programState === "keyboard shortcuts") {
         keyboardShortcuts();
+      }
+      else if (programState === "game app") {
+        if (gameState === 1) {
+          gameIntro();
+        }
+        if (gameState === 2) {
+          // Stickman game function, containing all of the components of it.
+          stickManGame();
+        }
+        else if (gameState === 3) {
+          // If stickman hits an obstacle, game over.
+          gameOverConditionals();
+        }
       }
     }
     else {
@@ -238,6 +295,13 @@ function mousePressed() {
     else if (keyBoardShortCutsButton.isClicked()) {
       programState = "keyboard shortcuts";
     }
+    else if (stickmanGameButton.isClicked()) {
+      clear();
+      gameState = 1;
+      score = 0;
+      gameMusic.loop();
+      programState = "game app";
+    }
   }
   if (programState === "music app") {
     // Play song one.
@@ -297,7 +361,10 @@ function mousePressed() {
       songChoice = 4;
     }
   }
-  if (programState !== "desktop" && closeWindowButton.isClicked()) {
+  if (programState !== "desktop" && closeWindowButton.isClicked() && gameState !== 1) {
+    if (gameMusic.isPlaying()) {
+      gameMusic.stop();
+    }
     clear();
     programState = "desktop";
   }
@@ -428,7 +495,7 @@ function desktop() {
   let clockH = hour();
   let clockM = minute();
   let clockS = second();
-  let meridiem = "AM";
+  let meridiem = "PM";
   // Clock conditionals.
   if (clockS < 10) {
     clockS = "0" + clockS;
@@ -438,7 +505,7 @@ function desktop() {
   }
   if (clockH > 12) {
     clockH = clockH - 12;
-    meridiem = "PM";
+    meridiem = "AM";
   }
   // 0 AM and 0 PM is converted to 12.
   if (clockH === 0) {
