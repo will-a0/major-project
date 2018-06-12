@@ -22,7 +22,7 @@ function gameIntro() {
   fill(102, 0, 51);
   push();
   rectMode(CENTER);
-  rect(windowWidth/2, windowHeight/2-245, 400, 200)
+  rect(windowWidth/2, windowHeight/2-245, 400, 200);
   pop();
   fill(255);
   textSize(80);

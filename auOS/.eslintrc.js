@@ -3,7 +3,7 @@ module.exports = {
     "env": {
         "es6": true
     },
-    "extends": "eslint:recommended",
+    //"extends": "eslint:recommended",
     "ecmaFeatures": {
       "blockBindings": true,
       "defaultParams": true,
