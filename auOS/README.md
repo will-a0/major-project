@@ -39,7 +39,7 @@ May 18th-26th - Continue working on desktop design.
 
 3rd-9th - Work on settings app. Incorporate already made projects as applications. Make music application.
 
-10th-13th - Fix up any hiccups.
+10th-15th - Incorporate final app for the system (paint app) and fix up any hiccups.
 
 
  

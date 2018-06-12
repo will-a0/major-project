@@ -78,7 +78,7 @@ function preload() {
 // Setup.
 function setup() {
   // Canvas that fits the entire screen based on the screen size of the device.
-  createCanvas(screen.width, screen.height);
+  createCanvas(windowWidth+100, windowHeight+100); // screen.width, screen.height.
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
@@ -86,7 +86,7 @@ function setup() {
   powerOnButton = new Button(windowWidth/2-50, windowHeight/2+150, 100, 100, 0, 0, 0);
   closeWindowButton = new Button(windowWidth-65, 0, 70, 70, 102, 0, 51);
   osGiphy = new OSGiphy(windowWidth/2-50, windowHeight/2+150, 100, 100);
-  programState = "login";
+  programState = "boot";
   bootMusic.setVolume(0.3);
   loginMusic.setVolume(0.2);
   errorSound.setVolume(0.2);
@@ -98,7 +98,7 @@ function setup() {
   checkMarkPositionX = -10;
   checkMarkPositionY = 0;
   // Name place holder.
-  namePlaceHolder = "User";
+  namePlaceHolder = "";
   // Password value.
   password = "auos10";
   // Music app song volume levels.
@@ -361,7 +361,7 @@ function mousePressed() {
       songChoice = 4;
     }
   }
-  if (programState !== "desktop" && closeWindowButton.isClicked() && gameState !== 1) {
+  if (programState !== "desktop" && closeWindowButton.isClicked() && gameState !== 2) {
     if (gameMusic.isPlaying()) {
       gameMusic.stop();
     }
@@ -412,7 +412,7 @@ function login() {
   // Error message.
   if (passInputGiven !== password || nameInputGiven === "") {
     fill(204, 0, 0);
-    text("No username, or password entered incorrectly. Please try again.",
+    text("Currently no username, or password was entered incorrectly.",
       windowWidth/2, windowHeight/2+230);
   }
   else {
@@ -432,7 +432,7 @@ function login() {
   userName.style("font-size", "30px");
 
   // Password.
-  userLoginInput = createInput("auos10","password").size(300);
+  userLoginInput = createInput("","password").size(300);
   userLoginInput.position(windowWidth/2-150, windowHeight/2+100);
   userLoginInput.style("font-size", "30px");
   userLoginInput.focus();
@@ -467,7 +467,7 @@ function desktop() {
   fill(255, 30);
   text("auOS", windowWidth/2, windowHeight/2);
   textSize(30);
-  text("version 0.0.1", windowWidth/2, windowHeight/2+70);
+  text("version 0.9.0", windowWidth/2, windowHeight/2+70);
 
   // User box.
   push();
@@ -495,7 +495,7 @@ function desktop() {
   let clockH = hour();
   let clockM = minute();
   let clockS = second();
-  let meridiem = "PM";
+  let meridiem = "AM";
   // Clock conditionals.
   if (clockS < 10) {
     clockS = "0" + clockS;
@@ -505,7 +505,7 @@ function desktop() {
   }
   if (clockH > 12) {
     clockH = clockH - 12;
-    meridiem = "AM";
+    meridiem = "PM";
   }
   // 0 AM and 0 PM is converted to 12.
   if (clockH === 0) {
@@ -694,19 +694,20 @@ function keyPressed() {
     }
   }
   if (programState === "desktop" || programState === "settings" || programState === "music app" ||
-  programState === "keyboard shortcuts" || programState === "paint app") {
+  programState === "keyboard shortcuts" || programState === "paint app" || programState === "game app") {
     // Settings - Sound and brightness conditionals.
     if (keyCode === 49) {
       if (volumeLevel > 0) {
         volumeLevel -= 0.095;
         tickMarkXPosition -= 20;
         song1.setVolume(volumeLevel);
-        song2.setVolume(volumeLevel);
-        song3.setVolume(volumeLevel);
-        song4.setVolume(volumeLevel);
+        song2.setVolume(volumeLevel+0.7);
+        song3.setVolume(volumeLevel+0.3);
+        song4.setVolume(volumeLevel+0.7);
+        gameMusic.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
-      if (programState !== "music app" && programState !== "desktop") {
+      if (programState !== "music app" && programState !== "desktop" && programState !== "game app") {
         volumeCheckSound.setVolume(volumeLevel);
         if (volumeSoundPlayed === false) {
           volumeCheckSound.play();
@@ -720,12 +721,13 @@ function keyPressed() {
         volumeLevel += 0.095;
         tickMarkXPosition += 20;
         song1.setVolume(volumeLevel);
-        song2.setVolume(volumeLevel);
-        song3.setVolume(volumeLevel);
-        song4.setVolume(volumeLevel);
+        song2.setVolume(volumeLevel+0.7);
+        song3.setVolume(volumeLevel+0.3);
+        song4.setVolume(volumeLevel+0.7);
+        gameMusic.setVolume(volumeLevel);
       }
       // Sounds AFTER login.
-      if (programState !== "music app" && programState !== "desktop") {
+      if (programState !== "music app" && programState !== "desktop" && programState !== "game app") {
         volumeCheckSound.setVolume(volumeLevel);
         if (volumeSoundPlayed === false) {
           volumeCheckSound.play();
@@ -852,6 +854,14 @@ function keyPressed() {
     if (key === "x" || key === "X") {
       clear();
       programState = "desktop";
+    }
+  }
+  // Move to the next page in the game.
+  if (programState === "game app") {
+    if (gameState === 1) {
+      if (key === "o" || key === "O") {
+        gameState = 2;
+      }
     }
   }
   // Shut down.

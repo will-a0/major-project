@@ -133,13 +133,13 @@ function musicApp() {
   textSize(50);
   // Aestetic Add ons.
   fill(102, 0, 51);
-  rect(0, windowHeight/2-340, windowWidth, 90);
-  rect(0, windowHeight/2+80, windowWidth, 90);
+  rect(windowWidth/2-580, windowHeight/2-340, windowWidth/2+530, 90);
+  rect(windowWidth/2-580, windowHeight/2+80, windowWidth/2+530, 90);
   // Title one.
   fill(255);
-  text("Old Classics", windowWidth/2-410, windowHeight/2-300);
+  text("Old Classics", windowWidth/2, windowHeight/2-300);
   // Title two.
-  text("Personal Creation", windowWidth/2-340, windowHeight/2+125);
+  text("Personal Creation", windowWidth/2, windowHeight/2+125);
   // Song titles.
   textSize(26);
   // Song one.
@@ -181,7 +181,7 @@ function musicApp() {
   // Instructions.
   textSize(23);
   fill(102, 0, 51);
-  rect(0, windowHeight/2+300, windowWidth, 100);
+  rect(0, windowHeight/2+300, windowWidth, windowHeight);
   fill(255);
   text("Volume: key '1' - decrease, key '2' - increase", windowWidth/2, windowHeight/2+325);
   text("Press play buttons to play (or 'p'), 'l (L)' to pause, 's' to stop and reset", windowWidth/2, windowHeight/2+375);

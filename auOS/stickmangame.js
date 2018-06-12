@@ -2,15 +2,6 @@
 // Stickman game.
 
 function gameIntro() {
-  background(25, 25, 112, 20);
-  fill(255);
-  textSize(80);
-  textFont("verdana");
-  text("Run", windowWidth/2, windowHeight/2-240);
-  textSize(40);
-  text("version 1.0.0", windowWidth/2, windowHeight/2-160);
-}
-function stickManGame() {
   // Stop all songs from the music app when in the game app
   if (song1.isPlaying()) {
     song1.stop();
@@ -24,8 +15,35 @@ function stickManGame() {
   if (song4.isPlaying()) {
     song4.stop();
   }
+  // Game title and instructions.
+  background(50, 0, 30, 20);
+  closeWindowButton.displayer();
+  image(closeWindowPic, windowWidth-73, -5, 80, 80);
+  fill(102, 0, 51);
+  push();
+  rectMode(CENTER);
+  rect(windowWidth/2, windowHeight/2-245, 400, 200)
+  pop();
+  fill(255);
+  textSize(80);
+  textFont("verdana");
+  text("Run", windowWidth/2, windowHeight/2-280);
+  textSize(30);
+  text("version 2.0.0", windowWidth/2, windowHeight/2-200);
+  textSize(60);
+  text("Instructions", windowWidth/2-260, windowHeight/2+30);
+  textSize(30);
+  text("| Right Arrow - Move |", windowWidth/2+240, windowHeight/2-50);
+  text("| Up Arrow - Small Jump |", windowWidth/2+240, windowHeight/2+30);
+  text("| X - Big Jump |", windowWidth/2+240, windowHeight/2+110);
+  textSize(300);
+  text("[", windowWidth/2, windowHeight/2);
+  textSize(30);
+  text("Press 'o' to continue", windowWidth/2, windowHeight/2+260);
+}
+function stickManGame() {
   // Background.
-  background(216, 191, 216);
+  background(216+brightnessLevel, 191+brightnessLevel, 216+brightnessLevel);
   // Collision Detector (Hitbox) also containing the obstacles.
   // Set to follow the stickman's movements. Hitbox is hidden.
   collisionDetector.newPositionAndSurfaceDetection();
@@ -34,7 +52,7 @@ function stickManGame() {
   collisionDetector.obstacles();
   // Surface of the game.
   fill(0);
-  rect(0, 696, windowWidth, 100);
+  rect(0, 696, windowWidth, windowHeight);
   // Stickman Character appearance, movement and behaviour.
   stickman.updateDisplay();
   stickman.newPositionAndSurfaceDetection();
@@ -96,7 +114,8 @@ function gameOverConditionals() {
   text("Final Score: " + score + " m", windowWidth/2, windowHeight/2+70);
   text("High Score: " + highScore + " m", windowWidth/2, windowHeight/2+140);
   textSize(30);
-  text("Press 'r' to restart", windowWidth/2, windowHeight/2+210);
+  fill(255);
+  text("Press 'r' to restart", windowWidth/2, windowHeight/2+250);
   pop();
   // Obstacles are pushed to the end of the screen opposite of the stickman
   // before the game is rerun to give the player time to react.
