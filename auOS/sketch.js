@@ -78,7 +78,7 @@ function preload() {
 // Setup.
 function setup() {
   // Canvas that fits the entire screen based on the screen size of the device.
-  createCanvas(windowWidth, windowHeight); // screen.width, screen.height.
+  createCanvas(windowWidth, windowHeight);
   // Set up of appropriate variables.
   systemBoot = new Timer(3000);
   startup = new Timer(5000);
@@ -646,7 +646,9 @@ function logout() {
 // #############################################################################
 // Resize Canvas when switching to fullscreen and vice versa.
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  if (programState !== "login") {
+    resizeCanvas(windowWidth, windowHeight);
+  }
 }
 // Keyboard mechanism for functionality.
 function keyPressed() {
