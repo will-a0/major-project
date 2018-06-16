@@ -127,6 +127,7 @@ function gameOverConditionals() {
   }
 }
 
+// Controls stickman's appearance and gravity component.
 class StickmanCharacter {
   constructor(objectX) {
     this.width = width;
@@ -141,6 +142,7 @@ class StickmanCharacter {
     this.frameDuration3 = 60, this.frameDuration4 = 60;
     this.lastTimeFrameChanged = millis();
   }
+  // Display is updated based on the button pressed for the stickman.
   updateDisplay() {
     noStroke();
     if (this.objectY < 654) {
@@ -155,7 +157,7 @@ class StickmanCharacter {
       image(stickmanStandState, this.objectX, this.objectY-25, 70, 150);
       pop();
     }
-    if (keyIsDown(39) && !keyIsDown(38) && this.gravitySpeed === 0) { //39 - right arrow
+    if (keyIsDown(39) && !keyIsDown(38) && this.gravitySpeed === 0) {
       this.stickmanStanding = false;
 
       if (this.runningState === 1) {
@@ -203,6 +205,7 @@ class StickmanCharacter {
       this.stickmanStanding = true;
     }
   }
+  // Ability to detect surface and land accordingly with out going through the ground.
   newPositionAndSurfaceDetection() {
     this.gravitySpeed += this.gravity;
     this.objectY += this.velocityY + this.gravitySpeed;
@@ -211,11 +214,12 @@ class StickmanCharacter {
       this.gravitySpeed = 0;
     }
   }
+  // Jump mechanism and application of gravity.
   jump(negativeNumericalValue) {
-    if (keyIsDown(38) && this.objectY > 639) { //up arrow
+    if (keyIsDown(38) && this.objectY > 639) { //up arrow - smaller jump
       stickman.gravity = negativeNumericalValue;
     }
-    else if (keyIsDown(88) && this.objectY > 639) { //key x
+    else if (keyIsDown(88) && this.objectY > 639) { //key x - bigger jump
       stickman.gravity = negativeNumericalValue-2;
     }
     else {
@@ -223,6 +227,8 @@ class StickmanCharacter {
     }
   }
 }
+// Collsion detector pretty much follows the stickman's everymove in order to
+// properly detect hits to the logic is the same.
 class CollisionDetection {
   constructor(objectX) {
     this.width = width;
@@ -257,6 +263,7 @@ class CollisionDetection {
       collisionDetector.gravity = 0.8;
     }
   }
+  // Obstacles that show up in the game.
   obstacles() {
     //Obstacle 1.
     if (obstacleState === 1) {

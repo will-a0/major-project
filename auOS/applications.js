@@ -1,8 +1,8 @@
 // #############################################################################
 // Applications.
-
+// Responsible for the setup and look of the setting app.
 function settings() {
-  // Window setup and design.
+  // Window setup and design - also, side music logo display and close window button.
   background(55+brightnessLevel, 60+brightnessLevel, 86+brightnessLevel, 20);
   closeWindowButton.displayer();
   image(closeWindowPic, windowWidth-73, -5, 80, 80);
@@ -120,8 +120,9 @@ function settings() {
   text("G", windowWidth/2+545, windowHeight/2+270);
   pop();
 }
-
+// Responsible for the setup and look of music app.
 function musicApp() {
+  // Side "Music" logo display and close window button.
   background(0, 30);
   closeWindowButton.displayer();
   image(closeWindowPic, windowWidth-73, -5, 80, 80);
@@ -133,8 +134,8 @@ function musicApp() {
   textSize(50);
   // Aestetic Add ons.
   fill(102, 0, 51);
-  rect(windowWidth/2-580, windowHeight/2-340, windowWidth/2+530, 90);
-  rect(windowWidth/2-580, windowHeight/2+80, windowWidth/2+530, 90);
+  rect(windowWidth/2-580, windowHeight/2-340, 1160, 90);
+  rect(windowWidth/2-580, windowHeight/2+80, 1160, 90);
   // Title one.
   fill(255);
   text("Old Classics", windowWidth/2, windowHeight/2-300);
@@ -185,25 +186,26 @@ function musicApp() {
   fill(255);
   text("Volume: key '1' - decrease, key '2' - increase", windowWidth/2, windowHeight/2+325);
   text("Press play buttons to play (or 'p'), 'l (L)' to pause, 's' to stop and reset", windowWidth/2, windowHeight/2+375);
-  // Song one.
+  // Song one button.
   song1Button = new Button(windowWidth/2-550, windowHeight/2-240, 80, 80, 102, 0, 51);
   song1Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2-240, 80, 80);
-  // Song two.
+  // Song two button.
   song2Button = new Button(windowWidth/2-550, windowHeight/2-130, 80, 80, 102, 0, 51);
   song2Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2-130, 80, 80);
-  // Song three.
+  // Song three button.
   song3Button = new Button(windowWidth/2-550, windowHeight/2-20, 80, 80, 102, 0, 51);
   song3Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2-20, 80, 80);
-  // Song four.
+  // Song four button.
   song4Button = new Button(windowWidth/2-550, windowHeight/2+185, 80, 80, 102, 0, 51);
   song4Button.displayer();
   image(playButtonImage, windowWidth/2-550, windowHeight/2+185, 80, 80);
 }
-
+// Responsible for summary pop up of keyboard shortcuts.
 function keyboardShortcuts() {
+  // Design of the pop up.
   fill(0, 10);
   rect(0, 0, windowWidth, windowHeight);
   push();
